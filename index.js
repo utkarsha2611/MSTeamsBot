@@ -1,9 +1,12 @@
 ﻿// JavaScript source code
+
+
+const appInsights = require("applicationinsights");
+appInsights.setup("795df439-94fb-4fbe-91be-e35d774d1310");
+appInsights.start();
 var restify = require('restify');
 var builder = require('botbuilder');
-var appInsights = require('applicationinsights');
-appInsights.setup(process.env.APPINSIGHTS_INSTRUMENTATION_KEY).start();
-var appInsightsClient = appInsights.getClient();
+
 
 //=========================================================
 // Bot Setup
