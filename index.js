@@ -1,9 +1,9 @@
 ﻿// JavaScript source code
 
 
-const appInsights = require("applicationinsights");
+/*const appInsights = require("applicationinsights");
 appInsights.setup("795df439-94fb-4fbe-91be-e35d774d1310");
-appInsights.start();
+appInsights.start();*/
 var restify = require('restify');
 var builder = require('botbuilder');
 
@@ -95,6 +95,40 @@ bot.dialog('/unregister', [
     function(session) {
         //bot.dialog('/cannot', function (session) {
         session.send('Oh no :( Thanks for letting me know, I hope to see you at the next meeting.');
+
+      /*  'use strict';
+        const nodemailer = require('nodemailer');
+
+        // create reusable transporter object using the default SMTP transport
+        let transporter = nodemailer.createTransport({
+            host: 'smtp.example.com',
+            port: 465,
+            secure: true, // secure:true for port 465, secure:false for port 587
+            auth: {
+                user: 't-utsing@microsoft.com',
+                pass: ''
+            }
+        });
+
+        // setup email data with unicode symbols
+        let mailOptions = {
+            from: '"Fred Foo 👻" <foo@blurdybloop.com>', // sender address
+            to: 'bar@blurdybloop.com, baz@blurdybloop.com', // list of receivers
+            subject: 'Hello ✔', // Subject line
+            text: 'Hello world ?', // plain text body
+         html: '<b>Hello world ?</b>' // html body
+        };
+
+        // send mail with defined transport object
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return console.log(error);
+            }
+            console.log('Message %s sent: %s', info.messageId, info.response);
+        });*/
+
+
+
         session.endDialog();
         }
     
@@ -119,7 +153,7 @@ bot.dialog('/why', function (session) {
 });
 
 
-exports.createTelemetry = function (session, properties) {
+/*exports.createTelemetry = function (session, properties) {
     var data = {
         conversationData: JSON.stringify(session.conversationData),
         privateConversationData: JSON.stringify(session.privateConversationData),
@@ -135,4 +169,5 @@ exports.createTelemetry = function (session, properties) {
     }
 
     return data;
-};
+};*/
+

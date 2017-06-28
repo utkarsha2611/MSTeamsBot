@@ -12,5 +12,14 @@
     "applicationinsights": "^0.21.0",
     "botbuilder": "^3.8.4",
     "restify": "^4.3.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/utkarsha2611/MSTeamsBot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/utkarsha2611/MSTeamsBot/issues"
+  },
+  "homepage": "https://github.com/utkarsha2611/MSTeamsBot#readme"
 }
