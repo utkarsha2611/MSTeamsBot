@@ -1,12 +1,5 @@
-﻿// JavaScript source code
-
-
-/*const appInsights = require("applicationinsights");
-appInsights.setup("795df439-94fb-4fbe-91be-e35d774d1310");
-appInsights.start();*/
-var restify = require('restify');
+﻿var restify = require('restify');
 var builder = require('botbuilder');
-
 
 //=========================================================
 // Bot Setup
@@ -24,14 +17,10 @@ var connector = new builder.ChatConnector({
     appId: process.env.MICROSOFT_APP_ID,
     appPassword: process.env.MICROSOFT_APP_PASSWORD
 });
+
 var bot = new builder.UniversalBot(connector);
 // If a Post request is made to /api/messages on port 3978 of our local server, then we pass it to the bot connector to handle
 server.post('/api/messages', connector.listen());
-
-//=========================================================
-// Bots Dialogs
-//=========================================================
-
 
 // connecting with LUIS
 var luisRecognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL || "https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/12046620-4a2d-48e9-87f4-caf6d75c9b2e?subscription-key=7c029b229e924655a57eb8afe6dc990a&verbose=true&timezoneOffset=0&q=");
@@ -58,7 +47,7 @@ bot.dialog('/about', function (session) {
 });
 
 bot.dialog('/sayHi', function (session) {
-    session.send('Hi there! Try saying things like "What is the Modern workplace?"');
+    session.send('Try saying things like "What is the Modern workplace?"');
     session.endDialog();
 });
 
@@ -91,83 +80,11 @@ bot.dialog('/unregister', [
     function (session) {
         session.send('Why? :( I hope you do :)');
         session.endDialog();
-         },
-    function(session) {
+    },
+    function (session) {
         //bot.dialog('/cannot', function (session) {
         session.send('Oh no :( Thanks for letting me know, I hope to see you at the next meeting.');
-
-      /*  'use strict';
-        const nodemailer = require('nodemailer');
-
-        // create reusable transporter object using the default SMTP transport
-        let transporter = nodemailer.createTransport({
-            host: 'smtp.example.com',
-            port: 465,
-            secure: true, // secure:true for port 465, secure:false for port 587
-            auth: {
-                user: 't-utsing@microsoft.com',
-                pass: ''
-            }
-        });
-
-        // setup email data with unicode symbols
-        let mailOptions = {
-            from: '"Fred Foo 👻" <foo@blurdybloop.com>', // sender address
-            to: 'bar@blurdybloop.com, baz@blurdybloop.com', // list of receivers
-            subject: 'Hello ✔', // Subject line
-            text: 'Hello world ?', // plain text body
-         html: '<b>Hello world ?</b>' // html body
-        };
-
-        // send mail with defined transport object
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                return console.log(error);
-            }
-            console.log('Message %s sent: %s', info.messageId, info.response);
-        });*/
-
-
-
-        session.endDialog();
-        }
-    
-]);
-bot.dialog('/when', function (session) {
-    session.send('Tuesday, 15 August, 2017');
-    session.endDialog();
-});
-bot.dialog('/where', function (session) {
-    session.send('Steelcase office, 57 Mohammed Sultan Road');
-    session.endDialog();
-});
-
-bot.dialog('/who', function (session) {
-    session.send('Let me assist you. Send me the question and I will get back to you in a bit.');
-    session.endDialog();
-});
-
-bot.dialog('/why', function (session) {
-    session.send('There is a new way of working, dont you want to find out how? :)');
-    session.endDialog();
-});
-
-
-/*exports.createTelemetry = function (session, properties) {
-    var data = {
-        conversationData: JSON.stringify(session.conversationData),
-        privateConversationData: JSON.stringify(session.privateConversationData),
-        userData: JSON.stringify(session.userData),
-        conversationId: session.message.address.conversation.id,
-        userId: session.message.address.user.id
-    };
-
-    if (properties) {
-        for (property in properties) {
-            data[property] = properties[property];
-        }
     }
+        ]);
 
-    return data;
-};*/
 

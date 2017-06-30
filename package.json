@@ -10,8 +10,22 @@
   "license": "ISC",
   "dependencies": {
     "applicationinsights": "^0.21.0",
+    "azure-storage": "^2.2.0",
+    "botauth": "^0.2.12",
     "botbuilder": "^3.8.4",
-    "restify": "^4.3.0"
+    "botbuilder-azure": "^3.0.2",
+    "dotenv-extended": "^2.0.1",
+    "envx": "^1.0.0",
+    "express-session": "^1.15.3",
+    "fs": "0.0.1-security",
+    "https": "^1.0.0",
+    "node-uuid": "^1.4.8",
+    "passport-azure-ad": "^3.0.7",
+    "path": "^0.12.7",
+    "request": "^2.81.0",
+    "restify": "^4.3.1",
+    "underscore": "^1.8.3",
+    "validator": "^7.2.0"
   },
   "devDependencies": {},
   "repository": {
