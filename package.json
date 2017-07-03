@@ -14,6 +14,7 @@
     "botauth": "^0.2.12",
     "botbuilder": "^3.8.4",
     "botbuilder-azure": "^3.0.2",
+    "dotenv": "^4.0.0",
     "dotenv-extended": "^2.0.1",
     "envx": "^1.0.0",
     "express-session": "^1.15.3",
@@ -37,5 +38,3 @@
   },
   "homepage": "https://github.com/utkarsha2611/MSTeamsBot#readme"
 }
-
-

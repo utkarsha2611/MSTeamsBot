@@ -1,6 +1,8 @@
 
 'use strict';
 
+require('dotenv').config();
+
 const path = require('path');
 const botauth = require('botauth');
 const restify = require('restify');
@@ -11,12 +13,12 @@ const expressSession = require('express-session');
 const https = require('https');
 const request = require('request');
 
-const WEBSITE_HOSTNAME = envx("WEBSITE_HOSTNAME");
+// const WEBSITE_HOSTNAME = envx("WEBSITE_HOSTNAME");
 const PORT = envx("PORT", 3998);
 const BOTAUTH_SECRET = envx("BOTAUTH_SECRET");
 //bot application identity
-const MICROSOFT_APP_ID = envx("MICROSOFT_APP_ID");
-const MICROSOFT_APP_PASSWORD = envx("MICROSOFT_APP_PASSWORD");
+// const MICROSOFT_APP_ID = envx("MICROSOFT_APP_ID");
+// const MICROSOFT_APP_PASSWORD = envx("MICROSOFT_APP_PASSWORD");
 
 //oauth details for dropbox
 const AZUREAD_APP_ID = envx("AZUREAD_APP_ID");
@@ -35,8 +37,8 @@ server.listen(PORT, function () {
 
 // Create chat bot
 var connector = new builder.ChatConnector({
-    appId: MICROSOFT_APP_ID,
-    appPassword: MICROSOFT_APP_PASSWORD
+    appId: process.env.MICROSOFT_APP_ID,
+    appPassword: process.env.MICROSOFT_APP_PASSWORD
 });
 var bot = new builder.UniversalBot(connector);
 server.post('/api/messages', connector.listen());
