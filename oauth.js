@@ -6,22 +6,22 @@ const botauth = require('botauth');
 const restify = require('restify');
 const builder = require('botbuilder');
 const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
-// const envx = require("envx");
+const envx = require("envx");
 const expressSession = require('express-session');
 const https = require('https');
 const request = require('request');
 
-// const WEBSITE_HOSTNAME = envx("");
-// const PORT = envx("PORT", 3998);
-// const BOTAUTH_SECRET = envx("BOTAUTH_SECRET");
+const WEBSITE_HOSTNAME = envx("WEBSITE_HOSTNAME");
+const PORT = envx("PORT", 3998);
+const BOTAUTH_SECRET = envx("BOTAUTH_SECRET");
 //bot application identity
-// const MICROSOFT_APP_ID = envx("MICROSOFT_APP_ID");
-// const MICROSOFT_APP_PASSWORD = envx("MICROSOFT_APP_PASSWORD");
+const MICROSOFT_APP_ID = envx("MICROSOFT_APP_ID");
+const MICROSOFT_APP_PASSWORD = envx("MICROSOFT_APP_PASSWORD");
 
 //oauth details for dropbox
-// const AZUREAD_APP_ID = envx("AZUREAD_APP_ID");
-// const AZUREAD_APP_PASSWORD = envx("AZUREAD_APP_PASSWORD");
-// const AZUREAD_APP_REALM = envx("AZUREAD_APP_REALM");
+const AZUREAD_APP_ID = envx("AZUREAD_APP_ID");
+const AZUREAD_APP_PASSWORD = envx("AZUREAD_APP_PASSWORD");
+const AZUREAD_APP_REALM = envx("AZUREAD_APP_REALM");
 
 //=========================================================
 // Bot Setup
