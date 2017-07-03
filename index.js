@@ -76,16 +76,16 @@ bot.dialog('/modernWP', function (session) {
     session.endDialog();
 });
 
-bot.dialog('/unregister', [
+bot.dialog('/unregister',[
     function (session) {
         session.send('Why? :( I hope you do :)');
-        session.endDialog();
-    },
+    }, 
     function (session) {
-        //bot.dialog('/cannot', function (session) {
-        session.send('Oh no :( Thanks for letting me know, I hope to see you at the next meeting.');
-    }
-        ]);
+        bot.dialog('/cannot', function (session) {
+            session.send('Oh no :( Thanks for letting me know, I hope to see you at the next meeting.');
+            session.endDialog();
+        })}
+]    );
 
 bot.dialog('/where', function (session) {
     session.send('Steelcase office, 57 Mohammed Sultan Road');

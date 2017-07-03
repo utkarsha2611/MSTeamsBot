@@ -11,7 +11,7 @@ const expressSession = require('express-session');
 const https = require('https');
 const request = require('request');
 
-const WEBSITE_HOSTNAME = envx("WEBSITE_HOSTNAME");
+const WEBSITE_HOSTNAME = envx("");
 const PORT = envx("PORT", 3998);
 const BOTAUTH_SECRET = envx("BOTAUTH_SECRET");
 
