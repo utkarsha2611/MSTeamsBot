@@ -54,7 +54,7 @@ server.use(restify.bodyParser());
 server.use(expressSession({ secret: BOTAUTH_SECRET, resave: true, saveUninitialized: false }));
 //server.use(passport.initialize());
 
-var ba = new botauth.BotAuthenticator(server, bot, { session: true, baseUrl: `https://https://www.luis.ai/applications}`, secret: BOTAUTH_SECRET, successRedirect: '/code' });
+var ba = new botauth.BotAuthenticator(server, bot, { session: true, baseUrl: `https://${WEBSITE_HOSTNAME}`, secret: BOTAUTH_SECRET, successRedirect: '/code' });
 
 ba.provider("aadv2", (options) => {
     // Use the v2 endpoint (applications configured by apps.dev.microsoft.com)
