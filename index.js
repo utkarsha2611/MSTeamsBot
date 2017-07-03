@@ -8,22 +8,22 @@ const botauth = require('botauth');
 const restify = require('restify');
 const builder = require('botbuilder');
 const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
-const envx = require("envx");
+// const envx = require("envx");
 const expressSession = require('express-session');
 const https = require('https');
 const request = require('request');
 
 // const WEBSITE_HOSTNAME = envx("WEBSITE_HOSTNAME");
-const PORT = envx("PORT", 3998);
-const BOTAUTH_SECRET = envx("BOTAUTH_SECRET");
+// const PORT = envx("PORT", 3998);
+// const BOTAUTH_SECRET = envx("BOTAUTH_SECRET");
 //bot application identity
 // const MICROSOFT_APP_ID = envx("MICROSOFT_APP_ID");
 // const MICROSOFT_APP_PASSWORD = envx("MICROSOFT_APP_PASSWORD");
 
 //oauth details for dropbox
-const AZUREAD_APP_ID = envx("AZUREAD_APP_ID");
-const AZUREAD_APP_PASSWORD = envx("AZUREAD_APP_PASSWORD");
-const AZUREAD_APP_REALM = envx("AZUREAD_APP_REALM");
+// const AZUREAD_APP_ID = envx("AZUREAD_APP_ID");
+// const AZUREAD_APP_PASSWORD = envx("AZUREAD_APP_PASSWORD");
+// const AZUREAD_APP_REALM = envx("AZUREAD_APP_REALM");
 
 //=========================================================
 // Bot Setup
@@ -31,7 +31,7 @@ const AZUREAD_APP_REALM = envx("AZUREAD_APP_REALM");
 
 // Setup Restify Server
 var server = restify.createServer();
-server.listen(PORT, function () {
+server.listen(process.env.port || 3978, function () {
     console.log('%s listening to %s', server.name, server.url);
 });
 
@@ -53,20 +53,20 @@ server.get('/code', restify.serveStatic({
 
 server.use(restify.queryParser());
 server.use(restify.bodyParser());
-server.use(expressSession({ secret: BOTAUTH_SECRET, resave: true, saveUninitialized: false }));
+server.use(expressSession({ secret: process.env.BOTAUTH_SECRET, resave: true, saveUninitialized: false }));
 //server.use(passport.initialize());
 
-var ba = new botauth.BotAuthenticator(server, bot, { session: true, baseUrl: 'https://msteamsbot.azurewebsites.net', secret: BOTAUTH_SECRET, successRedirect: '/code' });
+var ba = new botauth.BotAuthenticator(server, bot, { session: true, baseUrl: 'https://msteamsbot.azurewebsites.net', secret: process.env.BOTAUTH_SECRET, successRedirect: '/code' });
 
 ba.provider("aadv2", (options) => {
     // Use the v2 endpoint (applications configured by apps.dev.microsoft.com)
     // For passport-azure-ad v2.0.0, had to set realm = 'common' to ensure authbot works on azure app service
     let oidStrategyv2 = {
         redirectUrl: options.callbackURL, //  redirect: /botauth/aadv2/callback
-        realm: AZUREAD_APP_REALM,
-        clientID: AZUREAD_APP_ID,
-        clientSecret: AZUREAD_APP_PASSWORD,
-        identityMetadata: 'https://login.microsoftonline.com/' + AZUREAD_APP_REALM + '/v2.0/.well-known/openid-configuration',
+        realm: process.env.AZUREAD_APP_REALM,
+        clientID: process.env.AZUREAD_APP_ID,
+        clientSecret: process.env.AZUREAD_APP_PASSWORD,
+        identityMetadata: 'https://login.microsoftonline.com/' + process.env.AZUREAD_APP_REALM + '/v2.0/.well-known/openid-configuration',
         skipUserProfile: false,
         validateIssuer: false,
         //allowHttpForRedirectUrl: true,
