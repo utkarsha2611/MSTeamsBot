@@ -1,12 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\node_modules",
-    "\\node_modules\\azure-storage",
-    "\\node_modules\\azure-storage\\lib",
-    "\\node_modules\\azure-storage\\lib\\common",
-    "\\node_modules\\azure-storage\\lib\\common\\services"
+    ""
   ],
-  "SelectedNode": "\\test.js",
+  "SelectedNode": "\\index.js",
   "PreviewInSolutionExplorer": false
 }
