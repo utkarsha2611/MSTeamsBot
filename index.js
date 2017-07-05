@@ -72,7 +72,7 @@ ba.provider("aadv2", (options) => {
         //allowHttpForRedirectUrl: true,
         responseType: 'code',
         responseMode: 'query',
-        scope: ['profile', 'offline_access'],
+        scope: ['profile', 'offline_access', 'User.Read'],
         passReqToCallback: true
     };
 
