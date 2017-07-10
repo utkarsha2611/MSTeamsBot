@@ -1,4 +1,3 @@
-
 // 'use strict';
 
 require('dotenv').config();
@@ -56,17 +55,19 @@ server.use(restify.bodyParser());
 server.use(expressSession({ secret: process.env.BOTAUTH_SECRET, resave: true, saveUninitialized: false }));
 // //server.use(passport.initialize());
 
-var ba = new botauth.BotAuthenticator(server, bot, { session: true, baseUrl: 'https://msteamsbot.azurewebsites.net', secret: process.env.BOTAUTH_SECRET, successRedirect: '/code' });
+var ba = new botauth.BotAuthenticator(server, bot, {
+    session: true, baseUrl: 'https://msteamsbot.azurewebsites.net', secret: 'msteamsbotsupersecret', successRedirect: '/code'
+});
 
 ba.provider("aadv2", (options) => {
     // Use the v2 endpoint (applications configured by apps.dev.microsoft.com)
     // For passport-azure-ad v2.0.0, had to set realm = 'common' to ensure authbot works on azure app service
     let oidStrategyv2 = {
         redirectUrl: options.callbackURL, //  redirect: /botauth/aadv2/callback
-        realm: process.env.AZUREAD_APP_REALM,
-        clientID: process.env.AZUREAD_APP_ID,
-        clientSecret: process.env.AZUREAD_APP_PASSWORD,
-        identityMetadata: 'https://login.microsoftonline.com/' + process.env.AZUREAD_APP_REALM + '/v2.0/.well-known/openid-configuration',
+        realm: 'common',
+        clientID: 'f1f77b6f - 360f-4d38-a6fc - cfa02b7e9b45',
+        clientSecret: 'yWXdi5TvwirfqWvcZSF6iPj',
+        identityMetadata: 'https://login.microsoftonline.com/' + 'common' + '/v2.0/.well-known/openid-configuration',
         skipUserProfile: false,
         validateIssuer: false,
         //allowHttpForRedirectUrl: true,
@@ -90,6 +91,36 @@ ba.provider("aadv2", (options) => {
 });
 
 
+var azure = require('azure-storage');
+var tableSvc = azure.createTableService('msteamsstorage', 'KhLvvKS+f11lHS7t0+VBmuJ00Ha8hh1JadDUaC+g8TQ1UnG6J5HmJPcYbVGl6dEfm4VW/VvPsn1Zb5YfyrNXzA==');
+tableSvc.createTableIfNotExists('tablenew', function (error, result, response) {
+    if (!error) {
+        // Table exists or created
+
+    }
+});
+
+function getCardsAttachments(session) {
+    return [
+        new builder.ThumbnailCard(session)
+            .title('1. Creator')
+            .subtitle('You are a Creator if - ')
+            .text('You thrive on inventing new ideas and ways to do things differently, often producing inspiring results.You see problems as opportunities and face them head on, while having some fun with it. Anybody can be a Creator. Roles similar to a Creator include - Designer, Writer, Programmer, Marketing'),
+
+        new builder.ThumbnailCard(session)
+            .title('2. Innovator')
+            .subtitle('You are an Innovator if - ')
+            .text('You are a thinker.You constantly strive to reinvent, optimize processes and introduce new methods, ideas, or products.You appreciate fact- based approaches to create breakthrough results. Anybody can be an Innovator. Roles similar to an Innovator include - General Manager, Finance, Sales, Engineer, Analyst'),
+
+        new builder.ThumbnailCard(session)
+            .title('3. Collaborator')
+            .subtitle('You are a Collaborator if - ')
+            .text('You believe in sharing ideas.When tasked with a project, you will reach out to someone outside of the team because the natural collaborator knows just whom to ask.You love improving people’s lives and the workplace loves you for it. Anybody can be a Collaborator. Roles similar to a Collaborator include - HR, Marketing, Manager, Communications')
+    ];
+    session.endDialog();
+}
+
+
 //=========================================================
 // Bots Dialogs
 //=========================================================
@@ -100,7 +131,7 @@ var luisRecognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL || "h
 var intentDialog = new builder.IntentDialog({ recognizers: [luisRecognizer] });
 bot.dialog('/', intentDialog);
 
-intentDialog.matches(/\b(hi|hello|hey|howdy|what's up)\b/i, '/sayHi') //Check for greetings using regex
+intentDialog.matches(/\b(hi|hello|hey|howdy|what's up)\b/i, '/signin') //Check for greetings using regex
     .matches(/logout/, "/logout")
     .matches(/signin/, "/signin")
     .matches('aboutEvent', '/about') //Check for LUIS intent to get definition
@@ -114,7 +145,10 @@ intentDialog.matches(/\b(hi|hello|hey|howdy|what's up)\b/i, '/sayHi') //Check fo
     .matches('where', '/where') //Check for LUIS intent to answer how it affects pay
     .matches('who', '/who') //Check for LUIS intent to answer how it affects pay
     .matches('why', '/why') //Check for LUIS intent to answer how it affects pay
+    .matches(/more/, '/more')//for more questions
+
     .onDefault(builder.DialogAction.send("Sorry, I didn't understand what you said.")); //Default message if all checks fail
+
 
 
 bot.dialog('/about', function (session) {
@@ -122,11 +156,13 @@ bot.dialog('/about', function (session) {
     session.endDialog();
 });
 
-bot.dialog('/sayHi', function (session) {
-    session.send('Try saying things like "What is the Modern workplace?"');
-    session.endDialog();
-});
 
+bot.dialog('/sayHi', function (session) {
+    // session.send('Try saying things like "What is the Modern workplace?"');
+    session.send('Welcome! I am your bot assisstant. To get started, say Signin');
+    //session.send('signin');
+    session.beginDialog('persona');
+});
 bot.dialog('/ask', function (session) {
     session.send('Sure, send me the question and I will get back to you in a bit.');
     session.endDialog();
@@ -152,16 +188,17 @@ bot.dialog('/modernWP', function (session) {
     session.endDialog();
 });
 
-bot.dialog('/unregister',[
+bot.dialog('/unregister', [
     function (session) {
         session.send('Why? :( I hope you do :)');
-    }, 
+    },
     function (session) {
         bot.dialog('/cannot', function (session) {
             session.send('Oh no :( Thanks for letting me know, I hope to see you at the next meeting.');
             session.endDialog();
-        })}
-]    );
+        })
+    }
+]);
 
 bot.dialog('/where', function (session) {
     session.send('Steelcase office, 57 Mohammed Sultan Road');
@@ -171,16 +208,16 @@ bot.dialog('/where', function (session) {
 bot.dialog('/when', function (session) {
     session.send('Tuesday, 15 August, 2017');
     session.endDialog();
-    });
+});
 bot.dialog('/who', function (session) {
     session.send('Let me assist you. Send me the question and I will get back to you in a bit.');
-        session.endDialog();
- });
+    session.endDialog();
+});
 bot.dialog('/why', function (session) {
     session.send();
     session.endDialog();
-    });
-
+});
+//]);
 bot.dialog("/logout", (session) => {
     ba.logout(session, "aadv2");
     session.endDialog("logged_out");
@@ -190,12 +227,83 @@ bot.dialog("/signin", [].concat(
     ba.authenticate("aadv2"),
     (session, args, skip) => {
         let user = ba.profile(session, "aadv2");
-        session.endDialog(user.displayName);
+        session.endDialog('Hello ' + user.displayName + ', welcome to the organization and we are happy to have you on our team.');
+
         session.userData.accessToken = user.accessToken;
         session.userData.refreshToken = user.refreshToken;
         session.beginDialog('workPrompt');
+        session.beginDialog('persona');
     }
 ));
+
+bot.dialog('persona', [
+
+    function (session) {
+        //session.send('entered');
+        session.send('Let us start by personalizing your profile. Please choose your persona in this company:');
+
+        var cards = getCardsAttachments();
+
+        // create reply with Carousel AttachmentLayout
+        var reply = new builder.Message(session)
+            .attachmentLayout(builder.AttachmentLayout.carousel)
+            .attachments(cards);
+
+        session.send(reply);
+        builder.Prompts.text(session,
+            "Enter your choice! Pick one from options 1-3 ");
+
+    },
+    // function (session,result)
+    function (session, result) {
+        // session.send('entered 2');
+        //  session.send(result);
+        if (result.response == 1 || result.response == 2 || result.response == 3) {
+
+            var rep = result.response;
+            var entGen = azure.TableUtilities.entityGenerator;
+            var task = {
+                PartitionKey: entGen.String('user'),
+                RowKey: entGen.String(rep)
+                //description: entGen.String(), store name of user
+                // dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
+            };
+
+            //session.send('creating table');
+
+
+            tableSvc.insertEntity('tablenew', task, function (error, result, response) {
+                if (!error) {
+                    // Entity inserted
+                    //session.send('saved in table');
+                }
+                else {
+                    session.send(error);
+                }
+            });
+            session.send('That is great! What would you like to do today?');
+            session.send('1. Get introduced to the new workspace - https://ncmedia.azureedge.net/ncmedia/2017/06/MS_Workplace2020_Singapore_EL_office365-1.png');
+            session.send('2. See how you can work better https://www.microsoft.com/singapore/modern-workplace/');
+
+            //var tableService = azure.createTableService();
+            tableSvc.retrieveEntity('tablenew', 'part2', 'row1', function (error, result, response) {
+                if (!error) {
+                    // result contains the entity
+                    session.send(task);
+                }
+            });
+
+
+            session.send('You can also ask me more details about the event. Try saying "What is Modern Workplace?"');
+            session.beginDialog('/');
+
+        }
+        //else { builder.Prompts.text(session, "Invalid entry! Please choose from 1-3 only!"); }
+        else { session.send("Invalid entry! Let'\s start again. Say Hi"); }
+
+
+    }]);
+
 
 bot.dialog('workPrompt', [
     (session) => {
