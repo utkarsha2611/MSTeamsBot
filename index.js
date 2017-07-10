@@ -102,7 +102,7 @@ bot.dialog('/', intentDialog);
 
 intentDialog.matches(/\b(hi|hello|hey|howdy|what's up)\b/i, '/signin') //Check for greetings using regex
     .matches(/logout/, "/logout")
-    .matches(/signin/, "/signin")
+   // .matches(/signin/, "/signin")
     .matches('aboutEvent', '/about') //Check for LUIS intent to get definition
     .matches('askQuesn', '/ask') //Check for LUIS intent to get definition
     .matches('cannot', '/cannot') //Check for LUIS intent to answer why it was introduced
