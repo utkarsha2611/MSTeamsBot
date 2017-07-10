@@ -379,13 +379,13 @@ bot.dialog('persona', [
             var task = {
                 PartitionKey: entGen.String('user'),
                 RowKey: entGen.String(rep),
-                description: entGen.String()// store name of user
+                description: entGen.String(session.userData.displayName)// store name of user
                 // dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
             };
 
             //session.send('creating table');
 
-
+            session.send(task.description);
             tableSvc.insertEntity('tablenew', task, function (error, result, response) {
                 if (!error) {
                     // Entity inserted
