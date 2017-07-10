@@ -155,6 +155,7 @@ bot.dialog('/modernWP', function (session) {
 bot.dialog('/unregister', [
     function (session) {
         session.send('Why? :( I hope you do :)');
+        session.endDialog();
     },
     function (session) {
         bot.dialog('/cannot', function (session) {
@@ -315,4 +316,33 @@ function getUserLatestEmail(accessToken, callback) {
     }).on('error', function (e) {
         callback(e, null);
     });
+}
+
+
+var azure = require('azure-storage');
+var tableSvc = azure.createTableService('msteamsstorage', 'KhLvvKS+f11lHS7t0+VBmuJ00Ha8hh1JadDUaC+g8TQ1UnG6J5HmJPcYbVGl6dEfm4VW/VvPsn1Zb5YfyrNXzA==');
+tableSvc.createTableIfNotExists('tablenew', function (error, result, response) {
+    if (!error) {
+        // Table exists or created
+
+    }
+});
+function getCardsAttachments(session) {
+    return [
+        new builder.ThumbnailCard(session)
+            .title('1. Creator')
+            .subtitle('You are a Creator if - ')
+            .text('You thrive on inventing new ideas and ways to do things differently, often producing inspiring results.You see problems as opportunities and face them head on, while having some fun with it. Anybody can be a Creator. Roles similar to a Creator include - Designer, Writer, Programmer, Marketing'),
+
+        new builder.ThumbnailCard(session)
+            .title('2. Innovator')
+            .subtitle('You are an Innovator if - ')
+            .text('You are a thinker.You constantly strive to reinvent, optimize processes and introduce new methods, ideas, or products.You appreciate fact- based approaches to create breakthrough results. Anybody can be an Innovator. Roles similar to an Innovator include - General Manager, Finance, Sales, Engineer, Analyst'),
+
+        new builder.ThumbnailCard(session)
+            .title('3. Collaborator')
+            .subtitle('You are a Collaborator if - ')
+            .text('You believe in sharing ideas.When tasked with a project, you will reach out to someone outside of the team because the natural collaborator knows just whom to ask.You love improving people’s lives and the workplace loves you for it. Anybody can be a Collaborator. Roles similar to a Collaborator include - HR, Marketing, Manager, Communications')
+    ];
+    session.endDialog();
 }
