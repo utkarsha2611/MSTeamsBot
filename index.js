@@ -350,7 +350,7 @@ bot.dialog('workPrompt', [
         } else {
             session.endDialog();
         }
-        session.beginDialog('persona');
+     //   session.beginDialog('persona');
     }
     
 ]);
