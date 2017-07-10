@@ -235,6 +235,7 @@ bot.dialog('workPrompt', [
                 }
             }
         );
+        session.beginDialog('when');
     },
     (session, results) => {
         var prompt = results.response;
