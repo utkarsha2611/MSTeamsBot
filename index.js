@@ -385,7 +385,7 @@ bot.dialog('persona', [
 
             //session.send('creating table');
 
-            session.send(task.description);
+          //  session.send(task.description);
             tableSvc.insertEntity('tablenew', task, function (error, result, response) {
                 if (!error) {
                     // Entity inserted
