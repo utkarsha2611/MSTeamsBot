@@ -227,12 +227,12 @@ bot.dialog("/signin", [].concat(
     ba.authenticate("aadv2"),
     (session, args, skip) => {
         let user = ba.profile(session, "aadv2");
-        session.endDialog('Hello ' + user.displayName + ', welcome to the organization and we are happy to have you on our team.');
+        session.endDialog(user.displayName);
 
         session.userData.accessToken = user.accessToken;
         session.userData.refreshToken = user.refreshToken;
         session.beginDialog('workPrompt');
-        session.beginDialog('persona');
+        
     }
 ));
 
@@ -350,7 +350,9 @@ bot.dialog('workPrompt', [
         } else {
             session.endDialog();
         }
+        session.beginDialog('persona');
     }
+    
 ]);
 
 
