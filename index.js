@@ -66,7 +66,7 @@ ba.provider("aadv2", (options) => {
         realm: process.env.AZUREAD_APP_REALM,
         clientID: process.env.AZUREAD_APP_ID,
         clientSecret: process.env.AZUREAD_APP_PASSWORD,
-        identityMetadata: 'https://login.microsoftonline.com/' + process.env.AZUREAD_APP_REALM + '/v2.0/.well-known/openid-configuration',
+        identityMetadata: 'https://c.microsoftonline.com/' + process.env.AZUREAD_APP_REALM + '/v2.0/.well-known/openid-configuration',
         skipUserProfile: false,
         validateIssuer: false,
         //allowHttpForRedirectUrl: true,
@@ -236,7 +236,7 @@ bot.dialog('workPrompt', [
                 }
             }
         );
-       // session.beginDialog('persona');
+        session.beginDialog('persona');
     },
     (session, results) => {
         var prompt = results.response;
@@ -245,7 +245,7 @@ bot.dialog('workPrompt', [
         } else {
             session.endDialog();
         }
-        session.beginDialog('persona');
+       // session.beginDialog('persona');
     }
 ]);
 
