@@ -377,7 +377,7 @@ bot.dialog('persona', [
             var rep = result.response;
             var entGen = azure.TableUtilities.entityGenerator;
             var task = {
-                PartitionKey: entGen.String(user.displayName),
+                PartitionKey: entGen.String(session.userData.name),
                 RowKey: entGen.String(rep)
                 //description: entGen.String(), store name of user
                 // dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
