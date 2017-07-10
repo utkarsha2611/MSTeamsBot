@@ -100,9 +100,9 @@ var luisRecognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL || "h
 var intentDialog = new builder.IntentDialog({ recognizers: [luisRecognizer] });
 bot.dialog('/', intentDialog);
 
-intentDialog.matches(/\b(hi|hello|hey|howdy|what's up)\b/i, '/sayHi') //Check for greetings using regex
+intentDialog.matches(/\b(hi|hello|hey|howdy|what's up)\b/i, '/signin') //Check for greetings using regex
     .matches(/logout/, "/logout")
-    .matches(/signin/, "/signin")
+ //   .matches(/signin/, "/signin")
     .matches('aboutEvent', '/about') //Check for LUIS intent to get definition
     .matches('askQuesn', '/ask') //Check for LUIS intent to get definition
     .matches('cannot', '/cannot') //Check for LUIS intent to answer why it was introduced
@@ -237,7 +237,7 @@ bot.dialog('workPrompt', [
                 }
             }
         );
-        session.beginDialog('when');
+        session.beginDialog('persona');
     },
     (session, results) => {
         var prompt = results.response;
@@ -346,3 +346,72 @@ function getCardsAttachments(session) {
     ];
     session.endDialog();
 }
+
+
+bot.dialog('persona', [
+
+    function (session) {
+        //session.send('entered');
+        session.send('Let us start by personalizing your profile. Please choose your persona in this company:');
+
+        var cards = getCardsAttachments();
+
+        // create reply with Carousel AttachmentLayout
+        var reply = new builder.Message(session)
+            .attachmentLayout(builder.AttachmentLayout.carousel)
+            .attachments(cards);
+
+        session.send(reply);
+        builder.Prompts.text(session,
+            "Enter your choice! Pick one from options 1-3 ");
+
+    },
+    // function (session,result)
+    function (session, result) {
+        // session.send('entered 2');
+        //  session.send(result);
+        if (result.response == 1 || result.response == 2 || result.response == 3) {
+
+            var rep = result.response;
+            var entGen = azure.TableUtilities.entityGenerator;
+            var task = {
+                PartitionKey: entGen.String('user'),
+                RowKey: entGen.String(rep)
+                //description: entGen.String(), store name of user
+                // dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
+            };
+
+            //session.send('creating table');
+
+
+            tableSvc.insertEntity('tablenew', task, function (error, result, response) {
+                if (!error) {
+                    // Entity inserted
+                    //session.send('saved in table');
+                }
+                else {
+                    session.send(error);
+                }
+            });
+            session.send('That is great! What would you like to do today?');
+            session.send('1. Get introduced to the new workspace - https://ncmedia.azureedge.net/ncmedia/2017/06/MS_Workplace2020_Singapore_EL_office365-1.png');
+            session.send('2. See how you can work better https://www.microsoft.com/singapore/modern-workplace/');
+
+            //var tableService = azure.createTableService();
+            tableSvc.retrieveEntity('tablenew', 'part2', 'row1', function (error, result, response) {
+                if (!error) {
+                    // result contains the entity
+                    session.send(task);
+                }
+            });
+
+
+            session.send('You can also ask me more details about the event. Try saying "What is Modern Workplace?"');
+            session.beginDialog('/');
+
+        }
+        //else { builder.Prompts.text(session, "Invalid entry! Please choose from 1-3 only!"); }
+        else { session.send("Invalid entry! Let'\s start again. Say Hi"); }
+
+
+    }]);
