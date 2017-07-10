@@ -191,8 +191,7 @@ bot.dialog("/signin", [].concat(
     ba.authenticate("aadv2"),
     (session, args, skip) => {
         let user = ba.profile(session, "aadv2");
-        session.send('Hello ' + user.displayName + ', welcome to the organization');
-        session.endDialog();
+        session.endDialog('Hello ' + user.displayName + ', welcome to the organization');
         session.userData.accessToken = user.accessToken;
         session.userData.refreshToken = user.refreshToken;
         session.beginDialog('workPrompt');
