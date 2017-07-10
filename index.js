@@ -152,16 +152,17 @@ bot.dialog('/modernWP', function (session) {
     session.endDialog();
 });
 
-bot.dialog('/unregister',[
+bot.dialog('/unregister', [
     function (session) {
         session.send('Why? :( I hope you do :)');
-    }, 
+    },
     function (session) {
         bot.dialog('/cannot', function (session) {
             session.send('Oh no :( Thanks for letting me know, I hope to see you at the next meeting.');
             session.endDialog();
-        })}
-]    );
+        })
+    }
+]);
 
 bot.dialog('/where', function (session) {
     session.send('Steelcase office, 57 Mohammed Sultan Road');
@@ -171,15 +172,15 @@ bot.dialog('/where', function (session) {
 bot.dialog('/when', function (session) {
     session.send('Tuesday, 15 August, 2017');
     session.endDialog();
-    });
+});
 bot.dialog('/who', function (session) {
     session.send('Let me assist you. Send me the question and I will get back to you in a bit.');
-        session.endDialog();
- });
+    session.endDialog();
+});
 bot.dialog('/why', function (session) {
     session.send();
     session.endDialog();
-    });
+});
 
 bot.dialog("/logout", (session) => {
     ba.logout(session, "aadv2");
