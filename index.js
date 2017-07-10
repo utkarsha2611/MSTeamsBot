@@ -239,7 +239,7 @@ bot.dialog('workPrompt', [
                 }
             }
         );
-        session.beginDialog('persona');
+      //  session.beginDialog('persona');
     },
     (session, results) => {
         var prompt = results.response;
@@ -344,7 +344,7 @@ function getCardsAttachments(session) {
         new builder.ThumbnailCard(session)
             .title('3. Collaborator')
             .subtitle('You are a Collaborator if - ')
-            .text('You believe in sharing ideas.When tasked with a project, you will reach out to someone outside of the team because the natural collaborator knows just whom to ask.You love improving people’s lives and the workplace loves you for it. Anybody can be a Collaborator. Roles similar to a Collaborator include - HR, Marketing, Manager, Communications')
+            .text('You believe in sharing ideas.When tasked with a project, you will reach out to someone outside of the team because the natural collaborator knows just whom to ask.You love improving people\m’s lives and the workplace loves you for it. Anybody can be a Collaborator. Roles similar to a Collaborator include - HR, Marketing, Manager, Communications')
     ];
     session.endDialog();
 }
@@ -377,7 +377,7 @@ bot.dialog('persona', [
             var rep = result.response;
             var entGen = azure.TableUtilities.entityGenerator;
             var task = {
-                PartitionKey: entGen.String('user'),
+                PartitionKey: entGen.String(user.displayName),
                 RowKey: entGen.String(rep)
                 //description: entGen.String(), store name of user
                 // dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
