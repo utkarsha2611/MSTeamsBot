@@ -408,7 +408,7 @@ bot.dialog('persona', [
             });
 
 
-            session.send('You can also ask me more details about the event. Try saying "What is Modern Workplace?"');
+            session.send('You can also ask me more details about the event. Try saying "What is Modern Workplace?" To Logout, say logout');
             session.beginDialog('/');
 
         }
