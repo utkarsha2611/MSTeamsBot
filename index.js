@@ -237,6 +237,7 @@ bot.dialog('workPrompt', [
             }
         );
         session.beginDialog('persona');
+        //session.send('entering');
     },
     (session, results) => {
         var prompt = results.response;
