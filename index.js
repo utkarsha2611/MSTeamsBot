@@ -236,7 +236,7 @@ bot.dialog('workPrompt', [
                 }
             }
         );
-        session.beginDialog('persona');
+       // session.beginDialog('persona');
     },
     (session, results) => {
         var prompt = results.response;
@@ -245,6 +245,7 @@ bot.dialog('workPrompt', [
         } else {
             session.endDialog();
         }
+        session.beginDialog('persona');
     }
 ]);
 
