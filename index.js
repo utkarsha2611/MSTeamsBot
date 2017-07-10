@@ -155,6 +155,7 @@ bot.dialog('/modernWP', function (session) {
 bot.dialog('/unregister',[
     function (session) {
         session.send('Why? :( I hope you do :)');
+        session.endDialog();
     }, 
     function (session) {
         bot.dialog('/cannot', function (session) {
@@ -234,6 +235,7 @@ bot.dialog('workPrompt', [
                 }
             }
         );
+        session.beginDialog('when');
     },
     (session, results) => {
         var prompt = results.response;
