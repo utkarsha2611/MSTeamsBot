@@ -216,6 +216,7 @@ bot.dialog("/logout", (session) => {
     session.endDialog("logged_out");
 });
 
+var username; 
 bot.dialog("/signin", [].concat(
     ba.authenticate("aadv2"),
     (session, args, skip) => {
@@ -223,12 +224,14 @@ bot.dialog("/signin", [].concat(
         session.send('Hello ' + user.displayName+', welcome to the organization');
        
         session.endDialog();
+        username = user.displayName;
         session.userData.accessToken = user.accessToken;
         session.userData.refreshToken = user.refreshToken;
       //  session.beginDialog('workPrompt');
         session.beginDialog('persona');
     }
 ));
+
 
 bot.dialog('workPrompt', [
     (session) => {
@@ -401,8 +404,8 @@ bot.dialog('persona', [
         // session.send('entered 2');
         //  session.send(result);
         if (result.response == 1 || result.response == 2 || result.response == 3) {
-            var username = session.userData.name;
-            session.send(username);
+          /*  var username = session.userData.name;
+            session.send(username);*/
             var rep = result.response;
             var entGen = azure.TableUtilities.entityGenerator;
             var task = {
