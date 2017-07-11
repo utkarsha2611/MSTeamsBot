@@ -226,7 +226,6 @@ bot.dialog("/signin", [].concat(
         username = user.displayName;
         session.userData.accessToken = user.accessToken;
         session.userData.refreshToken = user.refreshToken;
-        session.send(user.accessToken);
       //  session.beginDialog('workPrompt');
         session.beginDialog('persona');
     }
@@ -411,7 +410,7 @@ bot.dialog('persona', [
             var task = {
                 PartitionKey: entGen.String('user'),
                 RowKey: entGen.String(rep),
-                description: entGen.String(username)// store name of user
+                description: entGen.String(username.toString())// store name of user
                 // dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
             };
 
