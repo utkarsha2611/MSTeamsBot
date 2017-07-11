@@ -12,6 +12,7 @@ const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const expressSession = require('express-session');
 const https = require('https');
 const request = require('request');
+var nodemailer = require('nodemailer');
 
 // const WEBSITE_HOSTNAME = envx("WEBSITE_HOSTNAME");
 // const PORT = envx("PORT", 3998);
@@ -160,6 +161,30 @@ bot.dialog('/unregister', [
     function (session) {
         bot.dialog('/cannot', function (session) {
             session.send('Oh no :( Thanks for letting me know, I hope to see you at the next meeting.');
+
+
+            var transporter = nodemailer.createTransport({
+                service: 'microsoft',
+                auth: {
+                    user: 't-utsing@microsoft.com',
+                    pass: 'ExcludeBS12'
+                }
+            });
+
+            var mailOptions = {
+                from: 't-utsing@microsoft.com',
+                to: 'utkarsha261190@gmail.com',
+                subject: 'Sending Email using Node.js',
+                text: 'That was easy!'
+            };
+
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
             session.endDialog();
         })
     }
