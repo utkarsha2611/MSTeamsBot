@@ -401,7 +401,8 @@ bot.dialog('persona', [
         // session.send('entered 2');
         //  session.send(result);
         if (result.response == 1 || result.response == 2 || result.response == 3) {
-
+            var username = session.userData.displayName;
+            session.send(username);
             var rep = result.response;
             var entGen = azure.TableUtilities.entityGenerator;
             var task = {
