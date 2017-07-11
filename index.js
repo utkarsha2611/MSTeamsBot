@@ -221,8 +221,8 @@ bot.dialog("/signin", [].concat(
     ba.authenticate("aadv2"),
     (session, args, skip) => {
         let user = ba.profile(session, "aadv2");
-        session.send('Hello ' + user.displayName+', welcome to the organization');
-       
+        session.send('Hello ' + user.displayName + ', welcome to the organization');
+        session.send('email'+user.emails);
         session.endDialog();
         username = user.displayName;
         session.userData.accessToken = user.accessToken;
@@ -409,9 +409,9 @@ bot.dialog('persona', [
             var rep = result.response;
             var entGen = azure.TableUtilities.entityGenerator;
             var task = {
-                PartitionKey: entGen.String(username),
+                PartitionKey: entGen.String('user'),
                 RowKey: entGen.String(rep),
-             //   description: entGen.String(session.userData.displayName)// store name of user
+                description: entGen.String(username)// store name of user
                 // dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
             };
 
