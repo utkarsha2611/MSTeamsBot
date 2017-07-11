@@ -350,7 +350,6 @@ function getUserLatestEmail(accessToken, callback) {
     });
 }
 
-
 var azure = require('azure-storage');
 var tableSvc = azure.createTableService('msteamsstorage', 'KhLvvKS+f11lHS7t0+VBmuJ00Ha8hh1JadDUaC+g8TQ1UnG6J5HmJPcYbVGl6dEfm4VW/VvPsn1Zb5YfyrNXzA==');
 tableSvc.createTableIfNotExists('tablenew', function (error, result, response) {
@@ -423,7 +422,7 @@ bot.dialog('persona', [
                     session.send('saved in table');
                 }
                 else {
-                    session.send(error);
+                    session.send(error.message);
                 }
             });
             session.send('That is great! What would you like to do today?');
