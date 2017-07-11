@@ -419,7 +419,7 @@ bot.dialog('persona', [
             tableSvc.insertEntity('tablenew', task, function (error, result, response) {
                 if (!error) {
                     // Entity inserted
-                    session.send('saved in table');
+                   // session.send('saved in table');
                 }
                 else {
                     session.send(error.message);
