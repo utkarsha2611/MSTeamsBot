@@ -186,10 +186,10 @@ bot.dialog('/unregister', [
                     console.log('Email sent: ' + info.response);
                 }
             });
-            
+            session.send('successfully passed email');
+            session.endDialog();
         })
-        session.send('successfully passed email');
-        session.endDialog();
+        
     }
 ]);
 
