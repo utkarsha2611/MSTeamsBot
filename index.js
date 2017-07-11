@@ -162,7 +162,6 @@ bot.dialog('/unregister', [
         bot.dialog('/cannot', function (session) {
             session.send('Oh no :( Thanks for letting me know, I hope to see you at the next meeting.');
 
-
             var transporter = nodemailer.createTransport({
                 service: 'microsoft',
                 auth: {
@@ -406,7 +405,7 @@ bot.dialog('persona', [
             var rep = result.response;
             var entGen = azure.TableUtilities.entityGenerator;
             var task = {
-                PartitionKey: entGen.String('user'),
+                PartitionKey: entGen.String(rep.toString()),
                 RowKey: entGen.String(rep),
              //   description: entGen.String(session.userData.displayName)// store name of user
                 // dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
