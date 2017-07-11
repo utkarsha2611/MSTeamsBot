@@ -422,7 +422,7 @@ bot.dialog('persona', [
                    // session.send('saved in table');
                 }
                 else {
-                    session.send(error.message);
+                    session.send('You\'re already registered! See you at the event! :)');
                 }
             });
             session.send('That is great! What would you like to do today?');
