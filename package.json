@@ -23,6 +23,7 @@
     "fs": "0.0.1-security",
     "https": "^1.0.0",
     "node-uuid": "^1.4.8",
+    "nodemailer": "^4.0.1",
     "passport-azure-ad": "^3.0.7",
     "path": "^0.12.7",
     "request": "^2.81.0",

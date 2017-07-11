@@ -12,7 +12,7 @@ const OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const expressSession = require('express-session');
 const https = require('https');
 const request = require('request');
-var nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer');
 
 // const WEBSITE_HOSTNAME = envx("WEBSITE_HOSTNAME");
 // const PORT = envx("PORT", 3998);
