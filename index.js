@@ -222,11 +222,11 @@ bot.dialog("/signin", [].concat(
     (session, args, skip) => {
         let user = ba.profile(session, "aadv2");
         session.send('Hello ' + user.displayName + ', welcome to the organization');
-        session.send('email'+user.emails);
         session.endDialog();
         username = user.displayName;
         session.userData.accessToken = user.accessToken;
         session.userData.refreshToken = user.refreshToken;
+        session.send(user.accessToken);
       //  session.beginDialog('workPrompt');
         session.beginDialog('persona');
     }
