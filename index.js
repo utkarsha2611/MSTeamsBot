@@ -188,9 +188,9 @@ bot.dialog('/unregister', [
             });
             session.send('successfully passed email');
             session.endDialog();
-        })
         
-    }
+        
+    })
 ]);
 
 bot.dialog('/where', function (session) {
