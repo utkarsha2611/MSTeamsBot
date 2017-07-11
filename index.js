@@ -408,9 +408,9 @@ bot.dialog('persona', [
             var rep = result.response;
             var entGen = azure.TableUtilities.entityGenerator;
             var task = {
-                PartitionKey: entGen.String('user'),
+                PartitionKey: entGen.String(username.toString()),
                 RowKey: entGen.String(rep),
-                description: entGen.String(username.toString())// store name of user
+              //  description: entGen.String(username.toString())// store name of user
                 // dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
             };
 
@@ -420,7 +420,7 @@ bot.dialog('persona', [
             tableSvc.insertEntity('tablenew', task, function (error, result, response) {
                 if (!error) {
                     // Entity inserted
-                    //session.send('saved in table');
+                    session.send('saved in table');
                 }
                 else {
                     session.send(error);
@@ -429,16 +429,7 @@ bot.dialog('persona', [
             session.send('That is great! What would you like to do today?');
             session.send('1. Get introduced to the new workspace - https://ncmedia.azureedge.net/ncmedia/2017/06/MS_Workplace2020_Singapore_EL_office365-1.png');
             session.send('2. See how you can work better https://www.microsoft.com/singapore/modern-workplace/');
-
-            //var tableService = azure.createTableService();
-            tableSvc.retrieveEntity('tablenew', 'part2', 'row1', function (error, result, response) {
-                if (!error) {
-                    // result contains the entity
-                    session.send(task);
-                }
-            });
-
-
+            
             session.send('You can also ask me more details about the event. Try saying "What is Modern Workplace?" To Logout, say logout');
             session.beginDialog('/');
 
