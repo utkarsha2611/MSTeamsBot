@@ -182,11 +182,13 @@ bot.dialog('/unregister', [
                 if (error) {
                     console.log(error);
                 } else {
+                    session.send('email sent');
                     console.log('Email sent: ' + info.response);
                 }
             });
-            session.endDialog();
+            
         })
+        session.endDialog('successfully passed email');
     }
 ]);
 
