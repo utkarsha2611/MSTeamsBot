@@ -22,6 +22,8 @@
     "express-session": "^1.15.3",
     "fs": "0.0.1-security",
     "https": "^1.0.0",
+    "mstranslator": "^3.0.0",
+    "needle": "^1.6.0",
     "node-uuid": "^1.4.8",
     "nodemailer": "^4.0.1",
     "passport-azure-ad": "^3.0.7",
