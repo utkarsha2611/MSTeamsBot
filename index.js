@@ -314,6 +314,7 @@ function getAccessTokenWithRefreshToken(refreshToken, callback) {
     });
 }
 
+
 function getUserLatestEmail(accessToken, callback) {
     var options = {
         host: 'outlook.office.com', //https://outlook.office.com/api/v2.0/me/messages
