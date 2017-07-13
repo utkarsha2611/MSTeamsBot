@@ -115,7 +115,14 @@ intentDialog.matches(/\b(hi|hello|hey|howdy|what's up)\b/i, '/signin') //Check f
     .matches('where', '/where') //Check for LUIS intent to answer how it affects pay
     .matches('who', '/who') //Check for LUIS intent to answer how it affects pay
     .matches('why', '/why') //Check for LUIS intent to answer how it affects pay
+    .matches('beauty', '/beauty')
     .onDefault(builder.DialogAction.send("Sorry, I didn't understand what you said.")); //Default message if all checks fail
+
+
+bot.dialog('/beauty', function (session) {
+    session.send('If you fancy going bombshell blonde but cba with the maintenance, opt for a rooty butter blonde.The darkness at the crown allows for the colour to grow out fuss- free. "To get this look ask your colourist for a balayage that\'s beautifully blended" explains Jenna. "Tip - if you\'re starting from scratch, understand it will take a few goes to get the lightness needed for the ends.');
+    session.endDialog();
+});
 
 
 bot.dialog('/about', function (session) {
@@ -221,7 +228,7 @@ bot.dialog("/signin", [].concat(
     ba.authenticate("aadv2"),
     (session, args, skip) => {
         let user = ba.profile(session, "aadv2");
-        session.send('Hello ' + user.displayName + ', welcome to the organization');
+        session.send('Hello ' + user.displayName + ', welcome to DFS');
         session.endDialog();
         username = user.displayName;
         session.userData.accessToken = user.accessToken;
@@ -361,19 +368,16 @@ tableSvc.createTableIfNotExists('tablenew', function (error, result, response) {
 function getCardsAttachments(session) {
     return [
         new builder.ThumbnailCard(session)
-            .title('1. Creator')
-            .subtitle('You are a Creator if - ')
-            .text('You thrive on inventing new ideas and ways to do things differently, often producing inspiring results.You see problems as opportunities and face them head on, while having some fun with it. Anybody can be a Creator. Roles similar to a Creator include - Designer, Writer, Programmer, Marketing'),
+            .title('1. Beauty & Fragrances')
+            .subtitle('Know our brands- ')
+            .image('https://static-reg.lximg.com/images/pictures/45998/zoom_e86450d24deccdb358e47d81a1a8d374deea955e_1493214584_6287_EsteeLauder_Web.jpg'),
 
         new builder.ThumbnailCard(session)
-            .title('2. Innovator')
-            .subtitle('You are an Innovator if - ')
-            .text('You are a thinker.You constantly strive to reinvent, optimize processes and introduce new methods, ideas, or products.You appreciate fact- based approaches to create breakthrough results. Anybody can be an Innovator. Roles similar to an Innovator include - General Manager, Finance, Sales, Engineer, Analyst'),
+            .title('2. Fashion & Accessories')
+            .subtitle('What do we sell here? ')
+            .image('https://www.dfs.com/medias/SP10-492x620H.jpg?context=bWFzdGVyfGltYWdlc3wxOTY4NTZ8aW1hZ2UvanBlZ3xpbWFnZXMvaDA0L2gwZS84ODgzNzE2MzI1NDA2LmpwZ3wyYmMxMzc0N2Y0NTRjY2ZkYWMzMWY5OTFkN2ZhNWYwNDllYzcxOTU4YzUzMmM4OWE5ZmQ2MTdmYWI0OGFmNWI1')
 
-        new builder.ThumbnailCard(session)
-            .title('3. Collaborator')
-            .subtitle('You are a Collaborator if - ')
-            .text('You believe in sharing ideas.When tasked with a project, you will reach out to someone outside of the team because the natural collaborator knows just whom to ask.You love improving people\m’s lives and the workplace loves you for it. Anybody can be a Collaborator. Roles similar to a Collaborator include - HR, Marketing, Manager, Communications')
+      
     ];
     session.endDialog();
 }
@@ -383,7 +387,7 @@ bot.dialog('persona', [
 
     function (session) {
         //session.send('entered');
-        session.send('Let us start by personalizing your profile. Please choose your persona in this company:');
+        session.send('Let\'s start by knowing which area you\'re interested in :');
 
         var cards = getCardsAttachments();
 
@@ -394,14 +398,14 @@ bot.dialog('persona', [
 
         session.send(reply);
         builder.Prompts.text(session,
-            "Enter your choice! Pick one from options 1-3 ");
+            "Enter your choice! Pick one from options 1-2 ");
 
     },
     // function (session,result)
     function (session, result) {
         // session.send('entered 2');
         //  session.send(result);
-        if (result.response == 1 || result.response == 2 || result.response == 3) {
+        if (result.response == 1 || result.response == 2) {
             /*  var username = session.userData.name;
               session.send(username);*/
             var rep = result.response;
@@ -426,10 +430,10 @@ bot.dialog('persona', [
                 }
             });
             session.send('That is great! What would you like to do today?');
-            session.send('1. Get introduced to the new workspace - https://ncmedia.azureedge.net/ncmedia/2017/06/MS_Workplace2020_Singapore_EL_office365-1.png');
-            session.send('2. See how you can work better https://www.microsoft.com/singapore/modern-workplace/');
+            session.send('1. Know DFS history - https://www.dfsgroup.com/en/about-dfs/dfs-history');
+            session.send('2. Know Special offers-  https://www.dfs.com/en/singapore/local-events/');
 
-            session.send('You can also ask me more details about the event. Try saying "What is Modern Workplace?" To Logout, say logout');
+            session.send('You can also ask me more details about the event. Try saying "What is latest beauty trend?" To Logout, say logout');
             session.beginDialog('/');
 
         }
