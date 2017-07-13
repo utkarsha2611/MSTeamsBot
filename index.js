@@ -370,7 +370,7 @@ function getCardsAttachments(session) {
         new builder.ThumbnailCard(session)
             .title('1. Beauty & Fragrances')
             .subtitle('Know our brands- ')
-            .image('https://static-reg.lximg.com/images/pictures/45998/zoom_e86450d24deccdb358e47d81a1a8d374deea955e_1493214584_6287_EsteeLauder_Web.jpg'),
+            .images('https://static-reg.lximg.com/images/pictures/45998/zoom_e86450d24deccdb358e47d81a1a8d374deea955e_1493214584_6287_EsteeLauder_Web.jpg'),
 
         new builder.ThumbnailCard(session)
             .title('2. Fashion & Accessories')
