@@ -104,112 +104,50 @@ bot.dialog('/', intentDialog);
 intentDialog.matches(/\b(hi|hello|hey|howdy|what's up)\b/i, '/signin') //Check for greetings using regex
     .matches(/logout/, "/logout")
  //   .matches(/signin/, "/signin")
-    .matches('aboutEvent', '/about') //Check for LUIS intent to get definition
-    .matches('askQuesn', '/ask') //Check for LUIS intent to get definition
-    .matches('cannot', '/cannot') //Check for LUIS intent to answer why it was introduced
-    .matches('forward', '/forward') //Check for LUIS intent to answer why it was introduced
-    .matches('guestReg', '/guestRegister') //Check for LUIS intent to answer how to access it
-    .matches('modernWP', '/modernWP') //Check for LUIS intent to answer how is it different from SAP 
-    .matches('unregister', '/unregister') //Check for LUIS intent to answer what it looks like
-    .matches('when', '/when') //Check for LUIS intent to answer how it affects pay
-    .matches('where', '/where') //Check for LUIS intent to answer how it affects pay
-    .matches('who', '/who') //Check for LUIS intent to answer how it affects pay
-    .matches('why', '/why') //Check for LUIS intent to answer how it affects pay
+    .matches('beauty', '/beauty') //Check for LUIS intent to get definition
+    .matches('wines', '/wines') //Check for LUIS intent to get definition
+    .matches('fashion', '/fashion') //Check for LUIS intent to answer why it was introduced
+    .matches('about', '/about') //Check for LUIS intent to answer why it was introduced
     .onDefault(builder.DialogAction.send("Sorry, I didn't understand what you said.")); //Default message if all checks fail
 
 
 bot.dialog('/about', function (session) {
-    session.send('It is a showcase of a Modern Workplace where you can work in a whole new way.You don’t want to miss it.');
+    session.send('DFS ("DFS Group") is a Hong Kong based travel retailer of luxury products. Established in 1960, its network consists of duty-free stores stores located in 17 major airports and 18 downtown Galleria stores,[1][2] as well as resort locations worldwide.');
     session.endDialog();
 });
 
-bot.dialog('/sayHi', function (session) {
-    session.send('Try saying things like "What is the Modern workplace?"');
-    session.endDialog();
-});
+bot.dialog('/beauty', [function (session) {
+    session.send('Sure, let\'s learn about Beauty and Fragrances today!');
 
-bot.dialog('/ask', function (session) {
-    session.send('Sure, send me the question and I will get back to you in a bit.');
-    session.endDialog();
-});
+    var cards = getCardsAttachments();
 
-bot.dialog('/cannot', function (session) {
-    session.send('Oh no :( Thanks for letting me know, I hope to see you at the next meeting.');
-    session.endDialog();
-});
+    // create reply with Carousel AttachmentLayout
+    var reply = new builder.Message(session)
+        .attachmentLayout(builder.AttachmentLayout.carousel)
+        .attachments(cards);
 
-bot.dialog('/forward', function (session) {
-    session.send('Sure, please extend the invitation to your colleague and have them register.');
-    session.endDialog();
-});
+    session.send(reply);
+    builder.Prompts.text(session,
+        "Enter your choice! Pick one from options 1-2 ");
+   
+   },
+   function(session, result) {
+       if (result.response == 1)
+       {
 
-bot.dialog('/guestRegister', function (session) {
-    session.send('You may send the invite to your colleague. The registration link is available in the invite.');
-    session.endDialog();
-});
 
-bot.dialog('/modernWP', function (session) {
-    session.send('It’s a new way of working! Watch this video to find out more: https://youtu.be/veLoHcgN7pc');
-    session.endDialog();
-});
-
-bot.dialog('/unregister', [
-    function (session) {
-        session.send('Why? :( I hope you do :)');
-        session.endDialog();
-    },
-    function (session) {
-        bot.dialog('/cannot', function (session) {
-            session.send('Oh no :( Thanks for letting me know, I hope to see you at the next meeting.');
-
-            var transporter = nodemailer.createTransport({
-                service: 'microsoft',
-                auth: {
-                    user: 't-utsing@microsoft.com',
-                    pass: 'ExcludeBS12'
-                }
-            });
-
-            var mailOptions = {
-                from: 't-utsing@microsoft.com',
-                to: 'utkarsha261190@gmail.com',
-                subject: 'Sending Email using Node.js',
-                text: 'That was easy!'
-            };
-
-            transporter.sendMail(mailOptions, function (error, info) {
-                if (error) {
-                    console.log(error);
-                } else {
-                    session.send('email sent');
-                    console.log('Email sent: ' + info.response);
-                }
-            });
-            session.send('successfully passed email');
-            session.endDialog();
-
-        }
-        )
+       }
+       else if (result.response == 2) { }
     }
+     
 ]);
 
-bot.dialog('/where', function (session) {
-    session.send('Steelcase office, 57 Mohammed Sultan Road');
+
+bot.dialog('/fashion', function (session) {
+    session.send('');
     session.endDialog();
 });
 
-bot.dialog('/when', function (session) {
-    session.send('Tuesday, 15 August, 2017');
-    session.endDialog();
-});
-bot.dialog('/who', function (session) {
-    session.send('Let me assist you. Send me the question and I will get back to you in a bit.');
-    session.endDialog();
-});
-bot.dialog('/why', function (session) {
-    session.send();
-    session.endDialog();
-});
 
 bot.dialog("/logout", (session) => {
     ba.logout(session, "aadv2");
@@ -350,91 +288,51 @@ function getUserLatestEmail(accessToken, callback) {
     });
 }
 
-var azure = require('azure-storage');
-var tableSvc = azure.createTableService('msteamsstorage', 'KhLvvKS+f11lHS7t0+VBmuJ00Ha8hh1JadDUaC+g8TQ1UnG6J5HmJPcYbVGl6dEfm4VW/VvPsn1Zb5YfyrNXzA==');
-tableSvc.createTableIfNotExists('tablenew', function (error, result, response) {
-    if (!error) {
-        // Table exists or created
-
-    }
-});
 function getCardsAttachments(session) {
     return [
         new builder.ThumbnailCard(session)
-            .title('1. Creator')
-            .subtitle('You are a Creator if - ')
-            .text('You thrive on inventing new ideas and ways to do things differently, often producing inspiring results.You see problems as opportunities and face them head on, while having some fun with it. Anybody can be a Creator. Roles similar to a Creator include - Designer, Writer, Programmer, Marketing'),
+            .title('Estee Lauder Foundation')
+            .image('https://www.esteelauder.com/media/export/cms/products/558x768/el_sku_RWAP66_558x768_0.jpg')
+            .subtitle('Double Wear Nude')
+            .text('BENEFITS \n LIGHTWEIGHT.SPF 30 / ANTI - POLLUTION. 24- HOUR WEAR.LIGHT - TO - MEDIUM COVERAGE'),
 
         new builder.ThumbnailCard(session)
-            .title('2. Innovator')
-            .subtitle('You are an Innovator if - ')
-            .text('You are a thinker.You constantly strive to reinvent, optimize processes and introduce new methods, ideas, or products.You appreciate fact- based approaches to create breakthrough results. Anybody can be an Innovator. Roles similar to an Innovator include - General Manager, Finance, Sales, Engineer, Analyst'),
-
-        new builder.ThumbnailCard(session)
-            .title('3. Collaborator')
-            .subtitle('You are a Collaborator if - ')
-            .text('You believe in sharing ideas.When tasked with a project, you will reach out to someone outside of the team because the natural collaborator knows just whom to ask.You love improving people\m’s lives and the workplace loves you for it. Anybody can be a Collaborator. Roles similar to a Collaborator include - HR, Marketing, Manager, Communications')
-    ];
+            .title('Estee Lauder Mascara')
+            .image('https://www.esteelauder.com/media/export/cms/products/558x768/el_sku_R8G001_558x768_0.jpg')
+           .subtitle('Sumptuous Knockout')
+               .text('BENEFITS \nLASHES ARE FANNED OUT.LIFTED.DEFINED')
+  ];
     session.endDialog();
 }
-
 
 bot.dialog('persona', [
 
     function (session) {
         //session.send('entered');
-        session.send('Let us start by personalizing your profile. Please choose your persona in this company:');
+        session.send('Let\'s start by knowing which area you would like to learn about today.');
 
-        var cards = getCardsAttachments();
-
-        // create reply with Carousel AttachmentLayout
-        var reply = new builder.Message(session)
-            .attachmentLayout(builder.AttachmentLayout.carousel)
-            .attachments(cards);
-
-        session.send(reply);
         builder.Prompts.text(session,
-            "Enter your choice! Pick one from options 1-3 ");
+            "1. Beauty & Fragrances \n 2. Fashion & Accessories. \n Enter 1 or 2!");
 
     },
     // function (session,result)
     function (session, result) {
         // session.send('entered 2');
         //  session.send(result);
-        if (result.response == 1 || result.response == 2 || result.response == 3) {
-          /*  var username = session.userData.name;
-            session.send(username);*/
-            var rep = result.response;
-            var entGen = azure.TableUtilities.entityGenerator;
-            var task = {
-                PartitionKey: entGen.String(username.toString()),
-                RowKey: entGen.String(rep),
-              //  description: entGen.String(username.toString())// store name of user
-                // dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
-            };
-
-            //session.send('creating table');
-
-          //  session.send(task.description);
-            tableSvc.insertEntity('tablenew', task, function (error, result, response) {
-                if (!error) {
-                    // Entity inserted
-                   // session.send('saved in table');
-                }
-                else {
-                    session.send('You\'re already registered! See you at the event! :)');
-                }
-            });
-            session.send('That is great! What would you like to do today?');
-            session.send('1. Get introduced to the new workspace - https://ncmedia.azureedge.net/ncmedia/2017/06/MS_Workplace2020_Singapore_EL_office365-1.png');
-            session.send('2. See how you can work better https://www.microsoft.com/singapore/modern-workplace/');
-            
-            session.send('You can also ask me more details about the event. Try saying "What is Modern Workplace?" To Logout, say logout');
-            session.beginDialog('/');
-
+        if (result.response == 1) {
+            session.dialog('beauty');
+        }
+        else if (result.response == 2) {
+            session.dialog('fashion');
         }
         //else { builder.Prompts.text(session, "Invalid entry! Please choose from 1-3 only!"); }
-        else { session.send("Invalid entry! Let'\s start again. Say Hi"); }
+        else { session.send("Ooh! Plz pick 1 or 2! Let'\s go again. Say Hi"); }
+        session.send('That is great! What would you like to do today?');
+        session.send('1. Know about Special offers? - https://www.dfs.com/en/singapore/local-events');
+        session.send('2. Read some Trips & Tips? - https://www.dfs.com/en/singapore/trips-and-tips-homepage');
 
+        session.send('You can also ask me more details. Try saying "Tell me about DFS" To Logout, say logout');
+        session.beginDialog('/');
+    }
 
     }]);
