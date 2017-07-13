@@ -395,10 +395,9 @@ bot.dialog('persona', [
         var reply = new builder.Message(session)
             .attachmentLayout(builder.AttachmentLayout.carousel)
             .attachments(cards);
-
+        session.send('before reply');
         session.send(reply);
-        builder.Prompts.text(session,
-            "Enter your choice! Pick one from options 1-2 ");
+        builder.Prompts.text(session,"Enter your choice! Pick one from options 1-2 ");
 
     },
     // function (session,result)
