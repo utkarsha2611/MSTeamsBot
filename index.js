@@ -312,7 +312,8 @@ bot.dialog('persona', [
         session.send('Let\'s start by knowing which area you would like to learn about today.');
 
         builder.Prompts.text(session,
-            "1. Beauty & Fragrances \n 2. Fashion & Accessories. \n Enter 1 or 2!");
+            "1. Beauty & Fragrances \n 2. Fashion & Accessories.");
+            session.send("Enter 1 or 2!");
 
     },
     // function (session,result)
@@ -320,10 +321,10 @@ bot.dialog('persona', [
         // session.send('entered 2');
         //  session.send(result);
         if (result.response == 1) {
-            session.dialog('beauty');
+            session.beginDialog('beauty');
         }
         else if (result.response == 2) {
-            session.dialog('fashion');
+            session.beginDialog('fashion');
         }
         //else { builder.Prompts.text(session, "Invalid entry! Please choose from 1-3 only!"); }
         else { session.send("Ooh! Plz pick 1 or 2! Let'\s go again. Say Hi"); }
