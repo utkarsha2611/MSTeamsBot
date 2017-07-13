@@ -366,16 +366,17 @@ tableSvc.createTableIfNotExists('tablenew', function (error, result, response) {
     }
 });
 function getCardsAttachments(session) {
+    
     return [
         new builder.ThumbnailCard(session)
             .title('1. Beauty & Fragrances')
-            .subtitle('Know our brands- ')
-            .images('https://static-reg.lximg.com/images/pictures/45998/zoom_e86450d24deccdb358e47d81a1a8d374deea955e_1493214584_6287_EsteeLauder_Web.jpg'),
+            .subtitle('Know our brands- '),
+      //      .images('https://static-reg.lximg.com/images/pictures/45998/zoom_e86450d24deccdb358e47d81a1a8d374deea955e_1493214584_6287_EsteeLauder_Web.jpg'),
 
         new builder.ThumbnailCard(session)
             .title('2. Fashion & Accessories')
             .subtitle('What do we sell here? ')
-            .image('https://www.dfs.com/medias/SP10-492x620H.jpg?context=bWFzdGVyfGltYWdlc3wxOTY4NTZ8aW1hZ2UvanBlZ3xpbWFnZXMvaDA0L2gwZS84ODgzNzE2MzI1NDA2LmpwZ3wyYmMxMzc0N2Y0NTRjY2ZkYWMzMWY5OTFkN2ZhNWYwNDllYzcxOTU4YzUzMmM4OWE5ZmQ2MTdmYWI0OGFmNWI1')
+         //   .image('https://www.dfs.com/medias/SP10-492x620H.jpg?context=bWFzdGVyfGltYWdlc3wxOTY4NTZ8aW1hZ2UvanBlZ3xpbWFnZXMvaDA0L2gwZS84ODgzNzE2MzI1NDA2LmpwZ3wyYmMxMzc0N2Y0NTRjY2ZkYWMzMWY5OTFkN2ZhNWYwNDllYzcxOTU4YzUzMmM4OWE5ZmQ2MTdmYWI0OGFmNWI1')
 
       
     ];
