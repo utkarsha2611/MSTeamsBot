@@ -104,7 +104,7 @@ bot.dialog('/', intentDialog);
 intentDialog.matches(/\b(hi|hello|hey|howdy|what's up)\b/i, '/signin') //Check for greetings using regex
     .matches(/logout/, "/logout")
  //   .matches(/signin/, "/signin")
-    .matches('beauty', '/beauty') //Check for LUIS intent to get definition
+   // .matches('beauty', '/beauty') //Check for LUIS intent to get definition
     .matches('wines', '/wines') //Check for LUIS intent to get definition
     .matches('fashion', '/fashion') //Check for LUIS intent to answer why it was introduced
     .matches('about', '/about') //Check for LUIS intent to answer why it was introduced
@@ -320,7 +320,7 @@ bot.dialog('persona', [
     function (session, result) {
         // session.send('entered 2');
         //  session.send(result);
-        session.send('before if');
+    //    session.send('before if');
         if (result.response == 1) {
             session.beginDialog('beauty');
         }
