@@ -159,7 +159,7 @@ bot.dialog("/signin", [].concat(
     ba.authenticate("aadv2"),
     (session, args, skip) => {
         let user = ba.profile(session, "aadv2");
-        session.send('Hello ' + user.displayName + ', welcome to the organization');
+        session.send('Hello ' + user.displayName + ', welcome to DFS!');
         session.endDialog();
         username = user.displayName;
         session.userData.accessToken = user.accessToken;
@@ -320,13 +320,13 @@ bot.dialog('persona', [
     function (session, result) {
         // session.send('entered 2');
         //  session.send(result);
+        session.send('before if');
         if (result.response == 1) {
             session.beginDialog('beauty');
         }
         else if (result.response == 2) {
             session.beginDialog('fashion');
         }
-        //else { builder.Prompts.text(session, "Invalid entry! Please choose from 1-3 only!"); }
         else { session.send("Ooh! Plz pick 1 or 2! Let'\s go again. Say Hi"); }
         session.send('That is great! What would you like to do today?');
         session.send('1. Know about Special offers? - https://www.dfs.com/en/singapore/local-events');
