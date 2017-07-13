@@ -370,9 +370,18 @@ function getCardsAttachments(session) {
     return [
         new builder.ThumbnailCard(session)
             .title('1. Beauty & Fragrances')
-            .subtitle('Know our brands- '),
+            .subtitle('Know our brands- ')
+            .text('https://www.dfs.com/en/singapore/brands?baseStore=dfsSingapore&filterQuery=')
       //      .images('https://static-reg.lximg.com/images/pictures/45998/zoom_e86450d24deccdb358e47d81a1a8d374deea955e_1493214584_6287_EsteeLauder_Web.jpg'),
-
+         .images([
+            //handle if thumbnail is empty
+             'https://static-reg.lximg.com/images/pictures/45998/zoom_e86450d24deccdb358e47d81a1a8d374deea955e_1493214584_6287_EsteeLauder_Web.jpg'
+        ]),
+            /*.buttons([
+              //  builder.CardAction.dialogAction(session, "moredetails", article.description, "Short snippet"),
+                builder.CardAction.openUrl(session, article.url, "Full article")
+            ])
+        )*/
         new builder.ThumbnailCard(session)
             .title('2. Fashion & Accessories')
             .subtitle('What do we sell here? ')
@@ -396,40 +405,10 @@ bot.dialog('persona', [
         var reply = new builder.Message(session)
             .attachmentLayout(builder.AttachmentLayout.carousel)
             .attachments(cards);
-        session.send('before reply');
+    
         session.send(reply);
-        builder.Prompts.text(session,"Enter your choice! Pick one from options 1-2 ");
-
-    },
-    // function (session,result)
-    function (session, result) {
-        // session.send('entered 2');
-        //  session.send(result);
-        if (result.response == 1 || result.response == 2) {
-            /*  var username = session.userData.name;
-              session.send(username);*/
-            var rep = result.response;
-            var entGen = azure.TableUtilities.entityGenerator;
-            var task = {
-                PartitionKey: entGen.String(username.toString()),
-                RowKey: entGen.String(rep),
-                //  description: entGen.String(username.toString())// store name of user
-                // dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
-            };
-
-            //session.send('creating table');
-
-            //  session.send(task.description);
-            tableSvc.insertEntity('tablenew', task, function (error, result, response) {
-                if (!error) {
-                    // Entity inserted
-                    // session.send('saved in table');
-                }
-                else {
-                    session.send('You\'re already registered! See you at the event! :)');
-                }
-            });
-            session.send('That is great! What would you like to do today?');
+   
+            session.send('That is great! What else would you like to do today?');
             session.send('1. Know DFS history - https://www.dfsgroup.com/en/about-dfs/dfs-history');
             session.send('2. Know Special offers-  https://www.dfs.com/en/singapore/local-events/');
 
@@ -438,7 +417,7 @@ bot.dialog('persona', [
 
         }
         //else { builder.Prompts.text(session, "Invalid entry! Please choose from 1-3 only!"); }
-        else { session.send("Invalid entry! Let'\s start again. Say Hi"); }
+      //  else { session.send("Invalid entry! Let'\s start again. Say Hi"); }
 
 
-    }]);
+    ]);
