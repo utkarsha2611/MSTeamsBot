@@ -412,7 +412,7 @@ bot.dialog('persona', [
             session.send('1. Know DFS history - https://www.dfsgroup.com/en/about-dfs/dfs-history');
             session.send('2. Know Special offers-  https://www.dfs.com/en/singapore/local-events/');
 
-            session.send('You can also ask me more details about the event. Try saying "What is latest beauty trend?" To Logout, say logout');
+            session.send('You can also ask me more stuff! Try saying "What is the latest beauty trend?" To Logout, say logout');
             session.beginDialog('/');
 
         }
