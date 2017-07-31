@@ -430,7 +430,7 @@ bot.dialog('persona', [
             while (i > 0) {
                 var task = {
                     PartitionKey: entGen.String(username.toString()),
-                    RowKey: entGen.String(i),
+                    RowKey: entGen.String(i.toString()),
                     description: entGen.String(ques)
                     //  description: entGen.String(username.toString())// store name of user
                     // dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
