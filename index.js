@@ -235,8 +235,8 @@ bot.dialog("/signin", [].concat(
         let user = ba.profile(session, "aadv2");
         session.send('Hello ' + user.displayName + ', welcome to the organization');
         session.endDialog();
-      //  username = user.displayName;
-        username = user.emails;
+        //  username = user.displayName;
+        username = user.id;
         session.userData.accessToken = user.accessToken;
         session.userData.refreshToken = user.refreshToken;
         //  session.beginDialog('workPrompt');
