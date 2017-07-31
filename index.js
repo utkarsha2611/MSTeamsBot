@@ -204,13 +204,14 @@ bot.dialog('/when', function (session) {
 });
 var ques;
 bot.dialog('/who', [function (session) {
-    session.send('Ask me questions');
+    
+    builder.Prompts.confirm(session, "Ask me questions");
 
    // session.send('Let me assist you. Send me the question and I will get back to you in a bit.');
     session.endDialog();
 },
     function (session, result) {
-        ques = result.message;
+        ques = result.response.message;
         session.send(ques.toString());
         session.endDialog();
     }
