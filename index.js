@@ -428,12 +428,12 @@ bot.dialog('persona', [
         if (result.response == 1 || result.response == 2 || result.response == 3) {
             /*  var username = session.userData.name;
               session.send(username);*/
-          //  var rep = result.response;
-            var rep;
+            var rep = result.response;
+          
             var i = 0;
             var entGen = azure.TableUtilities.entityGenerator;
             while (i > 0) {
-                session.send('first'+i);
+                session.send('first',i);
                 var task = {
                     PartitionKey: entGen.String(username.toString()),
                     RowKey: entGen.String(rep.toString()),
@@ -441,9 +441,9 @@ bot.dialog('persona', [
                     //  description: entGen.String(username.toString())// store name of user
                     // dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
                 }
-                session.send('second'+i);
+                session.send('second',i);
                 i = i + 1;
-                session.send('third' + i);
+                session.send('third' , i);
             };
 
             //session.send('creating table');
