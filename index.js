@@ -435,7 +435,7 @@ bot.dialog('persona', [
                     //  description: entGen.String(username.toString())// store name of user
                     // dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
                 }
-                i++;
+                i=i+1;
             };
 
             //session.send('creating table');
