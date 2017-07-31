@@ -362,7 +362,8 @@ function getCardsAttachments(session) {
     return [
         new builder.ThumbnailCard(session)
             .title('Utkarsha Singh')
-            .images('https://yt3.ggpht.com/-XasXu4GveZU/AAAAAAAAAAI/AAAAAAAAAAA/CDFNDspUDV0/s900-c-k-no-mo-rj-c0xffffff/photo.jpg')
+            .image(builder.CardImage.create(session, 'https://docs.microsoft.com/en-us/bot-framework/media/how-it-works/architecture-resize.png'))
+        //    .images('https://yt3.ggpht.com/-XasXu4GveZU/AAAAAAAAAAI/AAAAAAAAAAA/CDFNDspUDV0/s900-c-k-no-mo-rj-c0xffffff/photo.jpg')
             .text('Technical Evangelist'),
 
         new builder.ThumbnailCard(session)
