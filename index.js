@@ -375,14 +375,14 @@ function getCardsAttachments(session) {
     return [
         new builder.HeroCard(session)
             .title('Utkarsha Singh')
-            .subtitle('Technical Evangelist')
+           // .subtitle('Technical Evangelist')
           //  .text('You thrive on inventing new ideas and ways to do things differently, often producing inspiring results.You see problems as opportunities and face them head on, while having some fun with it. Anybody can be a Creator. Roles similar to a Creator include - Designer, Writer, Programmer, Marketing')
             .images([
                 //Using this image: http://imgur.com/a/vl59A
                 builder.CardImage.create(session, "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAzjAAAAJDVjNDRkYzM2LTAzZjctNDUwNi1iNTk2LWI4MGE3ZjFiOTI2Zg.jpg")
             ])
-            .buttons(
-                builder.CardAction.dialogAction(session, "topnews", null, "Top News")),
+          //  .buttons(
+           //     builder.CardAction.dialogAction(session, "topnews", null, "Top News")),
 
         new builder.HeroCard(session)
             .title('2. Innovator')
@@ -428,6 +428,7 @@ bot.dialog('persona', [
             var task = {
                 PartitionKey: entGen.String(username.toString()),
                 RowKey: entGen.String(rep),
+                description: entGen.String(ques)
                 //  description: entGen.String(username.toString())// store name of user
                 // dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
             };
