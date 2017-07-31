@@ -379,17 +379,17 @@ function getCardsAttachments(session) {
           //  .text('You thrive on inventing new ideas and ways to do things differently, often producing inspiring results.You see problems as opportunities and face them head on, while having some fun with it. Anybody can be a Creator. Roles similar to a Creator include - Designer, Writer, Programmer, Marketing')
             .images([
                 //Using this image: http://imgur.com/a/vl59A
-                builder.CardImage.create(session, "http://i.imgur.com/I3fYOM2.jpg")
+                builder.CardImage.create(session, "https://www.linkedin.com/in/louissim/detail/photo/")
             ])
             .buttons(
                 builder.CardAction.dialogAction(session, "topnews", null, "Top News")),
 
-        new builder.ThumbnailCard(session)
+        new builder.HeroCard(session)
             .title('2. Innovator')
             .subtitle('You are an Innovator if - ')
             .text('You are a thinker.You constantly strive to reinvent, optimize processes and introduce new methods, ideas, or products.You appreciate fact- based approaches to create breakthrough results. Anybody can be an Innovator. Roles similar to an Innovator include - General Manager, Finance, Sales, Engineer, Analyst'),
 
-        new builder.ThumbnailCard(session)
+        new builder.HeroCard(session)
             .title('3. Collaborator')
             .subtitle('You are a Collaborator if - ')
             .text('You believe in sharing ideas.When tasked with a project, you will reach out to someone outside of the team because the natural collaborator knows just whom to ask.You love improving people\m’s lives and the workplace loves you for it. Anybody can be a Collaborator. Roles similar to a Collaborator include - HR, Marketing, Manager, Communications')
