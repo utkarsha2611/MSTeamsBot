@@ -385,9 +385,14 @@ function getCardsAttachments(session) {
            //     builder.CardAction.dialogAction(session, "topnews", null, "Top News")),
 
         new builder.HeroCard(session)
-            .title('2. Innovator')
-            .subtitle('You are an Innovator if - ')
-            .text('You are a thinker.You constantly strive to reinvent, optimize processes and introduce new methods, ideas, or products.You appreciate fact- based approaches to create breakthrough results. Anybody can be an Innovator. Roles similar to an Innovator include - General Manager, Finance, Sales, Engineer, Analyst'),
+            .title('Louis Sim')
+            .images([
+                //Using this image: http://imgur.com/a/vl59A
+                builder.CardImage.create(session, "https://d388w23p6r1vqc.cloudfront.net/img/profiles/532/profile_pic.png")
+            ]),
+        
+           // .subtitle('You are an Innovator if - ')
+          //  .text('You are a thinker.You constantly strive to reinvent, optimize processes and introduce new methods, ideas, or products.You appreciate fact- based approaches to create breakthrough results. Anybody can be an Innovator. Roles similar to an Innovator include - General Manager, Finance, Sales, Engineer, Analyst'),
 
         new builder.HeroCard(session)
             .title('3. Collaborator')
