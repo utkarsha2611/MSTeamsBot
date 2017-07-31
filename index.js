@@ -202,10 +202,18 @@ bot.dialog('/when', function (session) {
     session.send('Tuesday, 15 August, 2017');
     session.endDialog();
 });
-bot.dialog('/who', function (session) {
-    session.send('Let me assist you. Send me the question and I will get back to you in a bit.');
-    session.endDialog();
-});
+var ques;
+bot.dialog('/who', [function (session) {
+    session.send('Ask me questions');
+
+   // session.send('Let me assist you. Send me the question and I will get back to you in a bit.');
+   // session.endDialog();
+},
+    function (session, result) {
+        ques = result.message;
+    }
+    
+    ]);
 bot.dialog('/why', function (session) {
     session.send();
     session.endDialog();
