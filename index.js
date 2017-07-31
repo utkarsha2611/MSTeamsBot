@@ -363,7 +363,13 @@ function getCardsAttachments(session) {
         new builder.ThumbnailCard(session)
             .title('1. Creator')
             .subtitle('You are a Creator if - ')
-            .text('You thrive on inventing new ideas and ways to do things differently, often producing inspiring results.You see problems as opportunities and face them head on, while having some fun with it. Anybody can be a Creator. Roles similar to a Creator include - Designer, Writer, Programmer, Marketing'),
+            .text('You thrive on inventing new ideas and ways to do things differently, often producing inspiring results.You see problems as opportunities and face them head on, while having some fun with it. Anybody can be a Creator. Roles similar to a Creator include - Designer, Writer, Programmer, Marketing')
+            .images([
+                //Using this image: http://imgur.com/a/vl59A
+                builder.CardImage.create(session, "http://i.imgur.com/I3fYOM2.jpg")
+            ])
+            .buttons(
+                builder.CardAction.dialogAction(session, "topnews", null, "Top News")),
 
         new builder.ThumbnailCard(session)
             .title('2. Innovator')
