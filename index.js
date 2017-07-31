@@ -212,6 +212,7 @@ bot.dialog('/who', [function (session) {
 },
     function (session, result) {
         ques = result.response;
+        session.send(username);
         session.send(ques);
         session.endDialog();
     }
@@ -234,7 +235,8 @@ bot.dialog("/signin", [].concat(
         let user = ba.profile(session, "aadv2");
         session.send('Hello ' + user.displayName + ', welcome to the organization');
         session.endDialog();
-        username = user.displayName;
+      //  username = user.displayName;
+        username = user.emails;
         session.userData.accessToken = user.accessToken;
         session.userData.refreshToken = user.refreshToken;
         //  session.beginDialog('workPrompt');
@@ -371,7 +373,7 @@ tableSvc.createTableIfNotExists('tablenew', function (error, result, response) {
 });
 function getCardsAttachments(session) {
     return [
-        new builder.ThumbnailCard(session)
+        new builder.HeroCard(session)
             .title('Utkarsha Singh')
             .subtitle('Technical Evangelist')
           //  .text('You thrive on inventing new ideas and ways to do things differently, often producing inspiring results.You see problems as opportunities and face them head on, while having some fun with it. Anybody can be a Creator. Roles similar to a Creator include - Designer, Writer, Programmer, Marketing')
@@ -424,7 +426,7 @@ bot.dialog('persona', [
             var rep = result.response;
             var entGen = azure.TableUtilities.entityGenerator;
             var task = {
-                PartitionKey: entGen.String(ques.toString()),
+                PartitionKey: entGen.String(username.toString()),
                 RowKey: entGen.String(rep),
                 //  description: entGen.String(username.toString())// store name of user
                 // dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
