@@ -428,14 +428,17 @@ bot.dialog('persona', [
             var i = 0;
             var entGen = azure.TableUtilities.entityGenerator;
             while (i > 0) {
+                session.send('first'+i);
                 var task = {
                     PartitionKey: entGen.String(username.toString()),
-                    RowKey: i,
+                    RowKey: entGen.String(i.toString()),
                     description: entGen.String(ques)
                     //  description: entGen.String(username.toString())// store name of user
                     // dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
                 }
-                i=i+1;
+                session.send('second'+i);
+                i = i + 1;
+                session.send('third' + i);
             };
 
             //session.send('creating table');
