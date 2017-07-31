@@ -101,7 +101,7 @@ var luisRecognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL || "h
 var intentDialog = new builder.IntentDialog({ recognizers: [luisRecognizer] });
 bot.dialog('/', intentDialog);
 
-intentDialog.matches(/\b(hi|hello|hey|howdy|what's up)\b/i, '/wfhMail') //Check for greetings using regex
+intentDialog.matches(/\b(hi|hello|hey|howdy|what's up)\b/i, '/signin') //Check for greetings using regex
     .matches(/logout/, "/logout")
     //   .matches(/signin/, "/signin")
     .matches('aboutEvent', '/about') //Check for LUIS intent to get definition
@@ -361,24 +361,19 @@ tableSvc.createTableIfNotExists('tablenew', function (error, result, response) {
 function getCardsAttachments(session) {
     return [
         new builder.ThumbnailCard(session)
-            .title('Utkarsha Singh')
-     
-            .text('Technical Evangelist'),
+            .title('1. Creator')
+            .subtitle('You are a Creator if - ')
+            .text('You thrive on inventing new ideas and ways to do things differently, often producing inspiring results.You see problems as opportunities and face them head on, while having some fun with it. Anybody can be a Creator. Roles similar to a Creator include - Designer, Writer, Programmer, Marketing'),
 
         new builder.ThumbnailCard(session)
-            .title('2: Exciting expert Surface Pro device demos')
-          //  .subtitle('You are an Innovator if - ')
-            .text('Please proceed to Ideation Hub / Learning'),
+            .title('2. Innovator')
+            .subtitle('You are an Innovator if - ')
+            .text('You are a thinker.You constantly strive to reinvent, optimize processes and introduce new methods, ideas, or products.You appreciate fact- based approaches to create breakthrough results. Anybody can be an Innovator. Roles similar to an Innovator include - General Manager, Finance, Sales, Engineer, Analyst'),
 
         new builder.ThumbnailCard(session)
-            .title('3: Modern Workplace business solutions and applications like Microsoft 365 on the Surface Pro')
-            //.subtitle('You are a Collaborator if - ')
-            .text('Please proceed to Ideation Hub / 2'),
-
-       new builder.ThumbnailCard(session)
-           .title('4: Modern Meetings with Modern Devices')
-            //.subtitle('You are a Collaborator if - ')
-            .text('Please proceed to Ideation Hub / 2'),
+            .title('3. Collaborator')
+            .subtitle('You are a Collaborator if - ')
+            .text('You believe in sharing ideas.When tasked with a project, you will reach out to someone outside of the team because the natural collaborator knows just whom to ask.You love improving people\m’s lives and the workplace loves you for it. Anybody can be a Collaborator. Roles similar to a Collaborator include - HR, Marketing, Manager, Communications')
     ];
     session.endDialog();
 }
@@ -443,85 +438,3 @@ bot.dialog('persona', [
 
 
     }]);
-
-
-
-module.exports = {
-    getAccessTokenWithRefreshToken: (refreshToken, callback) => {
-        var data = 'grant_type=refresh_token'
-            + '&refresh_token=' + refreshToken
-            + '&client_id=' + process.env.AZUREAD_APP_ID
-            + '&client_secret=' + encodeURIComponent(process.env.AZUREAD_APP_PASSWORD)
-
-        var options = {
-            method: 'POST',
-            url: 'https://login.microsoftonline.com/common/oauth2/v2.0/token',
-            body: data,
-            json: true,
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-        };
-
-        request(options, function (err, res, body) {
-            if (err) return callback(err, body, res);
-            if (parseInt(res.statusCode / 100, 10) !== 2) {
-                if (body.error) {
-                    return callback(new Error(res.statusCode + ': ' + (body.error.message || body.error)), body, res);
-                }
-                if (!body.access_token) {
-                    return callback(new Error(res.statusCode + ': refreshToken error'), body, res);
-                }
-                return callback(null, body, res);
-            }
-            callback(null, {
-                accessToken: body.access_token,
-                refreshToken: body.refresh_token
-            }, res);
-        });
-    },
-
-    sendWfhEmail: (accessToken, toEmail, sendWFHData, callback) => {
-        var data = {
-            "Subject": sendWFHData.tbsubject,
-            "Body": {
-                "ContentType": "HTML",
-                "Content": sendWFHData.tbdescription
-            },
-            "Start": {
-                "DateTime": sendWFHData.startdate.toISOString(),
-                "TimeZone": "Asia/Singapore"
-            },
-            "End": {
-                "DateTime": sendWFHData.enddate.toISOString(),
-                "TimeZone": "Asia/Singapore"
-            },
-            "IsAllDay": true,
-            "ResponseRequested": false,
-            "ShowAs": "Free", // https://msdn.microsoft.com/en-us/office/office365/api/complex-types-for-mail-contacts-calendar#FreeBusyStatus
-            "IsReminderOn": false,
-            "Attendees": [
-                {
-                    "EmailAddress": {
-                        "Address": toEmail,
-                        "Name": "My team"
-                    },
-                    "Type": "Required" // Single instance
-                }
-            ]
-        };
-
-        var options = {
-            method: 'POST',
-            url: 'https://outlook.office.com/api/v2.0/me/events',
-            body: data,
-            json: true,
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + accessToken
-            }
-        };
-        request(options, function (err, res, body) {
-            if (err) return callback(err, null, null);
-            callback(err, body, res);
-        });
-    }
-}
