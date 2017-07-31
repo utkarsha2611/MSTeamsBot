@@ -211,6 +211,7 @@ bot.dialog('/who', [function (session) {
 },
     function (session, result) {
         ques = result.message;
+        session.send(ques.toString());
         session.endDialog();
     }
     
@@ -370,9 +371,9 @@ tableSvc.createTableIfNotExists('tablenew', function (error, result, response) {
 function getCardsAttachments(session) {
     return [
         new builder.ThumbnailCard(session)
-            .title('1. Creator')
-            .subtitle('You are a Creator if - ')
-            .text('You thrive on inventing new ideas and ways to do things differently, often producing inspiring results.You see problems as opportunities and face them head on, while having some fun with it. Anybody can be a Creator. Roles similar to a Creator include - Designer, Writer, Programmer, Marketing')
+            .title('Utkarsha Singh')
+            .subtitle('Technical Evangelist')
+          //  .text('You thrive on inventing new ideas and ways to do things differently, often producing inspiring results.You see problems as opportunities and face them head on, while having some fun with it. Anybody can be a Creator. Roles similar to a Creator include - Designer, Writer, Programmer, Marketing')
             .images([
                 //Using this image: http://imgur.com/a/vl59A
                 builder.CardImage.create(session, "http://i.imgur.com/I3fYOM2.jpg")
