@@ -207,10 +207,11 @@ bot.dialog('/who', [function (session) {
     session.send('Ask me questions');
 
    // session.send('Let me assist you. Send me the question and I will get back to you in a bit.');
-   // session.endDialog();
+    session.endDialog();
 },
     function (session, result) {
         ques = result.message;
+        session.endDialog();
     }
     
     ]);
@@ -421,7 +422,7 @@ bot.dialog('persona', [
             var rep = result.response;
             var entGen = azure.TableUtilities.entityGenerator;
             var task = {
-                PartitionKey: entGen.String(username.toString()),
+                PartitionKey: entGen.String(ques.toString()),
                 RowKey: entGen.String(rep),
                 //  description: entGen.String(username.toString())// store name of user
                 // dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
