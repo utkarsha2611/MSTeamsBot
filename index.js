@@ -423,14 +423,19 @@ bot.dialog('persona', [
         if (result.response == 1 || result.response == 2 || result.response == 3) {
             /*  var username = session.userData.name;
               session.send(username);*/
-            var rep = result.response;
+          //  var rep = result.response;
+            var rep;
+            var i = 0;
             var entGen = azure.TableUtilities.entityGenerator;
-            var task = {
-                PartitionKey: entGen.String(username.toString()),
-                RowKey: entGen.String(rep),
-                         description: entGen.String(ques)
-                //  description: entGen.String(username.toString())// store name of user
-                // dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
+            while (i > 0) {
+                var task = {
+                    PartitionKey: entGen.String(username.toString()),
+                    RowKey: entGen.String(i),
+                    description: entGen.String(ques)
+                    //  description: entGen.String(username.toString())// store name of user
+                    // dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
+                }
+                i++;
             };
 
             //session.send('creating table');
