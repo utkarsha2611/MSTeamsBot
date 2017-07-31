@@ -374,35 +374,52 @@ tableSvc.createTableIfNotExists('tablenew', function (error, result, response) {
 function getCardsAttachments(session) {
     return [
         new builder.HeroCard(session)
-            .title('Utkarsha Singh')
-            // .subtitle('Technical Evangelist')
-            //  .text('You thrive on inventing new ideas and ways to do things differently, often producing inspiring results.You see problems as opportunities and face them head on, while having some fun with it. Anybody can be a Creator. Roles similar to a Creator include - Designer, Writer, Programmer, Marketing')
+            .title('Device Immersion Experience')
+            .subtitle('Free and easy, Touch and Feel')
+         
             .images([
                 //Using this image: http://imgur.com/a/vl59A
                 builder.CardImage.create(session, "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAzjAAAAJDVjNDRkYzM2LTAzZjctNDUwNi1iNTk2LWI4MGE3ZjFiOTI2Zg.jpg")
-            ]),
+            ])
+            .text('Please proceed to Maker\'s Commons - devices and accessories are on display for interactivity purposes.Enjoy!'),
           //  .buttons(
            //     builder.CardAction.dialogAction(session, "topnews", null, "Top News")),
 
         new builder.HeroCard(session)
-            .title('Louis Sim')
+            .title('Exciting expert Surface Pro device demos')
             .images([
                 //Using this image: http://imgur.com/a/vl59A
                 builder.CardImage.create(session, "https://d388w23p6r1vqc.cloudfront.net/img/profiles/532/profile_pic.png")
-            ]),
+            ])
+            .text(' Please proceed to Ideation Hub / Learning'),
         
            // .subtitle('You are an Innovator if - ')
           //  .text('You are a thinker.You constantly strive to reinvent, optimize processes and introduce new methods, ideas, or products.You appreciate fact- based approaches to create breakthrough results. Anybody can be an Innovator. Roles similar to an Innovator include - General Manager, Finance, Sales, Engineer, Analyst'),
-
         new builder.HeroCard(session)
-            .title('Aditya Biswas')
+            .title('Modern Workplace business solutions and applications like Microsoft 365 on the Surface Pro')
            // .subtitle('You are a Collaborator if - ')
-          //  .text('You believe in sharing ideas.When tasked with a project, you will reach out to someone outside of the team because the natural collaborator knows just whom to ask.You love improving people\m’s lives and the workplace loves you for it. Anybody can be a Collaborator. Roles similar to a Collaborator include - HR, Marketing, Manager, Communications')
 
         .images([
             //Using this image: http://imgur.com/a/vl59A
             builder.CardImage.create(session, "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAA21AAAAJDQxZWQ5YzRiLWM1YTAtNDFmYS05YjJiLTExNDQ2NTIxN2VlMg.jpg")
-        ]),
+            ])
+            .text('Please proceed to Ideation Hub / 2'),
+
+        new builder.HeroCard(session)
+            .title('Modern Meetings with Modern Devices')
+            .images([
+                //Using this image: http://imgur.com/a/vl59A
+                builder.CardImage.create(session, "https://d388w23p6r1vqc.cloudfront.net/img/profiles/532/profile_pic.png")
+            ])
+            .text('Please proceed to Ideation Hub / 3 '),
+
+        new builder.HeroCard(session)
+            .title('Physical set up of the Modern Workplace ')
+            .images([
+                //Using this image: http://imgur.com/a/vl59A
+                builder.CardImage.create(session, "https://d388w23p6r1vqc.cloudfront.net/img/profiles/532/profile_pic.png")
+            ])
+            .text('Please approach any of the ambassadors and they will direct a Steelcase spokesperson to aid you in the discussion')
 
 
     ];
