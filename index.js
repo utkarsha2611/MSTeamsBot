@@ -236,7 +236,7 @@ bot.dialog("/signin", [].concat(
         session.send('Hello ' + user.displayName + ', welcome to the organization');
         session.endDialog();
         //  username = user.displayName;
-        username = user.id;
+        username = user.displayName;
         session.userData.accessToken = user.accessToken;
         session.userData.refreshToken = user.refreshToken;
         //  session.beginDialog('workPrompt');
@@ -379,7 +379,7 @@ function getCardsAttachments(session) {
           //  .text('You thrive on inventing new ideas and ways to do things differently, often producing inspiring results.You see problems as opportunities and face them head on, while having some fun with it. Anybody can be a Creator. Roles similar to a Creator include - Designer, Writer, Programmer, Marketing')
             .images([
                 //Using this image: http://imgur.com/a/vl59A
-                builder.CardImage.create(session, "https://www.linkedin.com/in/louissim/detail/photo/")
+                builder.CardImage.create(session, "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAzjAAAAJDVjNDRkYzM2LTAzZjctNDUwNi1iNTk2LWI4MGE3ZjFiOTI2Zg.jpg")
             ])
             .buttons(
                 builder.CardAction.dialogAction(session, "topnews", null, "Top News")),
