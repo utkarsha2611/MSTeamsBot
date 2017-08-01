@@ -141,27 +141,6 @@ bot.dialog('/modernWP', function (session) {
 });
 
 
-var ques;
-bot.dialog('/who', [function (session) {
-
-    builder.Prompts.text(session, "Ask me questions");
-
-    // session.send('Let me assist you. Send me the question and I will get back to you in a bit.');
-
-},
-function (session, result) {
-    ques = result.response;
-    session.send(username);
-    session.send(ques);
-    session.endDialog();
-}
-
-]);
-bot.dialog('/why', function (session) {
-    session.send();
-    session.endDialog();
-});
-
 bot.dialog("/logout", (session) => {
     ba.logout(session, "aadv2");
     session.endDialog("logged_out");
@@ -202,7 +181,7 @@ function getDetails(session)
                 //Using this image: http://imgur.com/a/vl59A
                 builder.CardImage.create(session, "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAzjAAAAJDVjNDRkYzM2LTAzZjctNDUwNi1iNTk2LWI4MGE3ZjFiOTI2Zg.jpg")
         ])
-        .buttons(builder.CardAction.openUrl(session,'https://ncmedia.azureedge.net/ncmedia/2017/06/MS_Workplace2020_Singapore_EL_office365-1.png' , "Know more"))
+        .buttons(builder.CardAction.openUrl(session,'https://www.microsoft.com/singapore/modern-workplace/' , "Know more"))
           //  .text('Please proceed to Maker\'s Commons - devices and accessories are on display for interactivity purposes.Enjoy!'),
 
 ]}
@@ -332,7 +311,7 @@ bot.dialog('persona', [
 
 
             //session.send('1. Get introduced to the new workspace - https://ncmedia.azureedge.net/ncmedia/2017/06/MS_Workplace2020_Singapore_EL_office365-1.png');
-            session.send('2. See how you can work better https://www.microsoft.com/singapore/modern-workplace/');
+           // session.send('2. See how you can work better https://www.microsoft.com/singapore/modern-workplace/');
             session.send('It’s a new way of working! Watch this video to find out more: https://youtu.be/veLoHcgN7pc');
            // session.send('You can also ask me more details about the event. Try saying "What is Modern Workplace?" To Logout, say logout');
             session.beginDialog('/');
