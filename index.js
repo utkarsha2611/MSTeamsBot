@@ -172,7 +172,7 @@ bot.dialog("/signin", [].concat(
     ba.authenticate("aadv2"),
     (session, args, skip) => {
         let user = ba.profile(session, "aadv2");
-        session.send('Hello ' + user.displayName + 'I\'m AidingAly and I can help you navigate Co-Lab, where the \'Future of Work is Creative\'');
+        session.send('Hello ' + user.displayName + ', I\'m AidingAly and I can help you navigate Co-Lab, where the \'Future of Work is Creative\'');
         session.endDialog();
         //  username = user.displayName;
         username = user.displayName;
@@ -269,7 +269,7 @@ bot.dialog('persona', [
     function (session) {
         //session.send('entered');
         session.send('What can I help you with today?');
-        builder.Prompts.text(session,'Say 1 for \'Event details   2 to know more about Modern Workplace')
+        builder.Prompts.text(session, 'Say 1 for Event details \n  2 for Modern Workplace knowhow');
 
         
      /*   builder.Prompts.text(session,
@@ -316,11 +316,22 @@ bot.dialog('persona', [
                 .attachmentLayout(builder.AttachmentLayout.carousel)
                 .attachments(cards);
 
-            //session.send(reply);
+           session.send(reply);
         }
         else if (result.response == 2) {
             session.send('That is great! What would you like to know?');
-            session.send('1. Get introduced to the new workspace - https://ncmedia.azureedge.net/ncmedia/2017/06/MS_Workplace2020_Singapore_EL_office365-1.png');
+
+            var card = getDetails();
+
+            // create reply with Carousel AttachmentLayout
+            var rep = new builder.Message(session)
+                .attachmentLayout(builder.AttachmentLayout.carousel)
+                .attachments(card);
+
+            session.send(rep);
+
+
+            //session.send('1. Get introduced to the new workspace - https://ncmedia.azureedge.net/ncmedia/2017/06/MS_Workplace2020_Singapore_EL_office365-1.png');
             session.send('2. See how you can work better https://www.microsoft.com/singapore/modern-workplace/');
             session.send('It’s a new way of working! Watch this video to find out more: https://youtu.be/veLoHcgN7pc');
            // session.send('You can also ask me more details about the event. Try saying "What is Modern Workplace?" To Logout, say logout');
@@ -329,6 +340,6 @@ bot.dialog('persona', [
 
         //else { builder.Prompts.text(session, "Invalid entry! Please choose from 1-3 only!"); }
         else { session.send("Invalid entry! Let'\s start again. Say Hi"); }
-
+        session.endDialog();
     
     }]);
