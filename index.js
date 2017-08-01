@@ -106,15 +106,15 @@ intentDialog.matches(/\b(hi|hello|hey|howdy|what's up)\b/i, '/signin') //Check f
     //   .matches(/signin/, "/signin")
     .matches('aboutEvent', '/about') //Check for LUIS intent to get definition
     .matches('askQuesn', '/ask') //Check for LUIS intent to get definition
-    .matches('cannot', '/cannot') //Check for LUIS intent to answer why it was introduced
-    .matches('forward', '/forward') //Check for LUIS intent to answer why it was introduced
-    .matches('guestReg', '/guestRegister') //Check for LUIS intent to answer how to access it
+  //  .matches('cannot', '/cannot') //Check for LUIS intent to answer why it was introduced
+  //  .matches('forward', '/forward') //Check for LUIS intent to answer why it was introduced
+  //  .matches('guestReg', '/guestRegister') //Check for LUIS intent to answer how to access it
     .matches('modernWP', '/modernWP') //Check for LUIS intent to answer how is it different from SAP 
     .matches('unregister', '/unregister') //Check for LUIS intent to answer what it looks like
     .matches('when', '/when') //Check for LUIS intent to answer how it affects pay
     .matches('where', '/where') //Check for LUIS intent to answer how it affects pay
     .matches('who', '/who') //Check for LUIS intent to answer how it affects pay
-    .matches('why', '/why') //Check for LUIS intent to answer how it affects pay
+ //   .matches('why', '/why') //Check for LUIS intent to answer how it affects pay
     .onDefault(builder.DialogAction.send("Sorry, I didn't understand what you said.")); //Default message if all checks fail
 
 
@@ -133,75 +133,14 @@ bot.dialog('/ask', function (session) {
     session.endDialog();
 });
 
-bot.dialog('/cannot', function (session) {
-    session.send('Oh no :( Thanks for letting me know, I hope to see you at the next meeting.');
-    session.endDialog();
-});
 
-bot.dialog('/forward', function (session) {
-    session.send('Sure, please extend the invitation to your colleague and have them register.');
-    session.endDialog();
-});
-
-bot.dialog('/guestRegister', function (session) {
-    session.send('You may send the invite to your colleague. The registration link is available in the invite.');
-    session.endDialog();
-});
 
 bot.dialog('/modernWP', function (session) {
     session.send('It’s a new way of working! Watch this video to find out more: https://youtu.be/veLoHcgN7pc');
     session.endDialog();
 });
 
-bot.dialog('/unregister', [
-    function (session) {
-        session.send('Why? :( I hope you do :)');
-        session.endDialog();
-    },
-    function (session) {
-        bot.dialog('/cannot', function (session) {
-            session.send('Oh no :( Thanks for letting me know, I hope to see you at the next meeting.');
 
-            var transporter = nodemailer.createTransport({
-                service: 'microsoft',
-                auth: {
-                    user: 't-utsing@microsoft.com',
-                    pass: 'ExcludeBS12'
-                }
-            });
-
-            var mailOptions = {
-                from: 't-utsing@microsoft.com',
-                to: 'utkarsha261190@gmail.com',
-                subject: 'Sending Email using Node.js',
-                text: 'That was easy!'
-            };
-
-            transporter.sendMail(mailOptions, function (error, info) {
-                if (error) {
-                    console.log(error);
-                } else {
-                    session.send('email sent');
-                    console.log('Email sent: ' + info.response);
-                }
-            });
-            session.send('successfully passed email');
-            session.endDialog();
-
-        }
-        )
-    }
-]);
-
-bot.dialog('/where', function (session) {
-    session.send('Steelcase office, 57 Mohammed Sultan Road');
-    session.endDialog();
-});
-
-bot.dialog('/when', function (session) {
-    session.send('Tuesday, 15 August, 2017');
-    session.endDialog();
-});
 var ques;
 bot.dialog('/who', [function (session) {
 
@@ -233,7 +172,7 @@ bot.dialog("/signin", [].concat(
     ba.authenticate("aadv2"),
     (session, args, skip) => {
         let user = ba.profile(session, "aadv2");
-        session.send('Hello ' + user.displayName + ', welcome to the organization');
+        session.send('Hello ' + user.displayName + 'I\'m AidingAly and I can help you navigate Co-Lab, where the \'Future of Work is Creative\'');
         session.endDialog();
         //  username = user.displayName;
         username = user.displayName;
@@ -245,124 +184,6 @@ bot.dialog("/signin", [].concat(
 ));
 
 
-bot.dialog('workPrompt', [
-    (session) => {
-        getUserLatestEmail(session.userData.accessToken,
-            function (requestError, result) {
-                if (result && result.value && result.value.length > 0) {
-                    const responseMessage = 'Your latest email is: "' + result.value[0].Subject + '"';
-                    session.send(responseMessage);
-                    builder.Prompts.confirm(session, "Retrieve the latest email again?");
-                } else {
-                    console.log('no user returned');
-                    if (requestError) {
-                        console.error(requestError);
-                        session.send(requestError);
-                        // Get a new valid access token with refresh token
-                        getAccessTokenWithRefreshToken(session.userData.refreshToken, (err, body, res) => {
-
-                            if (err || body.error) {
-                                session.send("Error while getting a new access token. Please try logout and login again. Error: " + err);
-                                session.endDialog();
-                            } else {
-                                session.userData.accessToken = body.accessToken;
-                                getUserLatestEmail(session.userData.accessToken,
-                                    function (requestError, result) {
-                                        if (result && result.value && result.value.length > 0) {
-                                            const responseMessage = 'Your latest email is: "' + result.value[0].Subject + '"';
-                                            session.send(responseMessage);
-                                            builder.Prompts.confirm(session, "Retrieve the latest email again?");
-                                        }
-                                    }
-                                );
-                            }
-
-                        });
-                    }
-                }
-            }
-        );
-        //  session.beginDialog('persona');
-    },
-    (session, results) => {
-        var prompt = results.response;
-        if (prompt) {
-            session.replaceDialog('workPrompt');
-        } else {
-            session.endDialog();
-        }
-    }
-]);
-
-
-function getAccessTokenWithRefreshToken(refreshToken, callback) {
-    var data = 'grant_type=refresh_token'
-        + '&refresh_token=' + refreshToken
-        + '&client_id=' + AZUREAD_APP_ID
-        + '&client_secret=' + encodeURIComponent(AZUREAD_APP_PASSWORD)
-
-    var options = {
-        method: 'POST',
-        url: 'https://login.microsoftonline.com/common/oauth2/v2.0/token',
-        body: data,
-        json: true,
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-    };
-
-    request(options, function (err, res, body) {
-        if (err) return callback(err, body, res);
-        if (parseInt(res.statusCode / 100, 10) !== 2) {
-            if (body.error) {
-                return callback(new Error(res.statusCode + ': ' + (body.error.message || body.error)), body, res);
-            }
-            if (!body.access_token) {
-                return callback(new Error(res.statusCode + ': refreshToken error'), body, res);
-            }
-            return callback(null, body, res);
-        }
-        callback(null, {
-            accessToken: body.access_token,
-            refreshToken: body.refresh_token
-        }, res);
-    });
-}
-
-function getUserLatestEmail(accessToken, callback) {
-    var options = {
-        host: 'outlook.office.com', //https://outlook.office.com/api/v2.0/me/messages
-        path: '/api/v2.0/me/MailFolders/Inbox/messages?$top=1',
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-            Authorization: 'Bearer ' + accessToken
-        }
-    };
-    https.get(options, function (response) {
-        var body = '';
-        response.on('data', function (d) {
-            body += d;
-        });
-        response.on('end', function () {
-            var error;
-            if (response.statusCode === 200) {
-                callback(null, JSON.parse(body));
-            } else {
-                error = new Error();
-                error.code = response.statusCode;
-                error.message = response.statusMessage;
-                // The error body sometimes includes an empty space
-                // before the first character, remove it or it causes an error.
-                body = body.trim();
-                error.innerError = body;
-                callback(error, null);
-            }
-        });
-    }).on('error', function (e) {
-        callback(e, null);
-    });
-}
-
 var azure = require('azure-storage');
 var tableSvc = azure.createTableService('msteamsstorage', 'KhLvvKS+f11lHS7t0+VBmuJ00Ha8hh1JadDUaC+g8TQ1UnG6J5HmJPcYbVGl6dEfm4VW/VvPsn1Zb5YfyrNXzA==');
 tableSvc.createTableIfNotExists('tablenew', function (error, result, response) {
@@ -371,6 +192,20 @@ tableSvc.createTableIfNotExists('tablenew', function (error, result, response) {
 
     }
 });
+
+function getDetails(session)
+{ return [
+        new builder.HeroCard(session)
+        .title('Get introduced to the new workspace')
+           
+            .images([
+                //Using this image: http://imgur.com/a/vl59A
+                builder.CardImage.create(session, "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAzjAAAAJDVjNDRkYzM2LTAzZjctNDUwNi1iNTk2LWI4MGE3ZjFiOTI2Zg.jpg")
+        ])
+        .buttons(builder.CardAction.openUrl(session,'https://ncmedia.azureedge.net/ncmedia/2017/06/MS_Workplace2020_Singapore_EL_office365-1.png' , "Know more"))
+          //  .text('Please proceed to Maker\'s Commons - devices and accessories are on display for interactivity purposes.Enjoy!'),
+
+]}
 function getCardsAttachments(session) {
     return [
         new builder.HeroCard(session)
@@ -427,67 +262,73 @@ function getCardsAttachments(session) {
 }
 
 
+
+
 bot.dialog('persona', [
 
     function (session) {
         //session.send('entered');
-        session.send('Let us start by personalizing your profile. Please choose your persona in this company:');
+        session.send('What can I help you with today?');
+        builder.Prompts.text(session,'Say 1 for \'Event details   2 to know more about Modern Workplace')
 
-        var cards = getCardsAttachments();
-
-        // create reply with Carousel AttachmentLayout
-        var reply = new builder.Message(session)
-            .attachmentLayout(builder.AttachmentLayout.carousel)
-            .attachments(cards);
-
-        session.send(reply);
-        builder.Prompts.text(session,
-            "Enter your choice! Pick one from options 1-3 ");
+        
+     /*   builder.Prompts.text(session,
+            "Enter your choice! Pick one from options 1-3 ");*/
 
     },
     // function (session,result)
     function (session, result) {
         // session.send('entered 2');
         //  session.send(result);
-        if (result.response == 1 || result.response == 2 || result.response == 3) {
+        if (result.response == 1) {
             /*  var username = session.userData.name;
               session.send(username);*/
-            var rep = result.response;
-          
-          
-            var entGen = azure.TableUtilities.entityGenerator;
-           
-                var task = {
-                    PartitionKey: entGen.String(username.toString()),
-                    RowKey: entGen.String(rep.toString()),
-                    description: entGen.String(ques)
-                    //  description: entGen.String(username.toString())// store name of user
-                    // dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
-                }
-               
+            /* var rep = result.response;
+ 
+             var entGen = azure.TableUtilities.entityGenerator;
+            
+                 var task = {
+                     PartitionKey: entGen.String(username.toString()),
+                     RowKey: entGen.String(rep.toString()),
+                     description: entGen.String(ques)
+                     //  description: entGen.String(username.toString())// store name of user
+                     // dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
+                 }*/
+
 
             //session.send('creating table');
 
             //  session.send(task.description);
-            tableSvc.insertEntity('tablenew', task, function (error, result, response) {
-                if (!error) {
-                    // Entity inserted
-                    // session.send('saved in table');
-                }
-                else {
-                    session.send('You\'re already registered! See you at the event! :)');
-                }
-            });
-            session.send('That is great! What would you like to do today?');
+            /*  tableSvc.insertEntity('tablenew', task, function (error, result, response) {
+                  if (!error) {
+                      // Entity inserted
+                      // session.send('saved in table');
+                  }
+                  else {
+                      session.send('You\'re already registered! See you at the event! :)');
+                  }
+              }); */
+
+            var cards = getCardsAttachments();
+
+            // create reply with Carousel AttachmentLayout
+            var reply = new builder.Message(session)
+                .attachmentLayout(builder.AttachmentLayout.carousel)
+                .attachments(cards);
+
+            //session.send(reply);
+        }
+        else if (result.response == 2) {
+            session.send('That is great! What would you like to know?');
             session.send('1. Get introduced to the new workspace - https://ncmedia.azureedge.net/ncmedia/2017/06/MS_Workplace2020_Singapore_EL_office365-1.png');
             session.send('2. See how you can work better https://www.microsoft.com/singapore/modern-workplace/');
-
-            session.send('You can also ask me more details about the event. Try saying "What is Modern Workplace?" To Logout, say logout');
+            session.send('It’s a new way of working! Watch this video to find out more: https://youtu.be/veLoHcgN7pc');
+           // session.send('You can also ask me more details about the event. Try saying "What is Modern Workplace?" To Logout, say logout');
             session.beginDialog('/');
-
         }
+
         //else { builder.Prompts.text(session, "Invalid entry! Please choose from 1-3 only!"); }
         else { session.send("Invalid entry! Let'\s start again. Say Hi"); }
 
-
+    
     }]);
