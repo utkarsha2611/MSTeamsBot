@@ -235,6 +235,7 @@ function getCardsAttachments(session) {
 
 
     ];
+    
     session.endDialog();
 }
 
@@ -246,7 +247,8 @@ bot.dialog('persona', [
     function (session) {
         //session.send('entered');
         session.send('What can I help you with today?');
-        builder.Prompts.text(session, 'Say 1 for Event details \n  2 for Modern Workplace knowhow');
+        //builder.Prompts.text(session, 'Say 1 for Event details \n  2 for Modern Workplace knowhow');
+        builder.Prompts.choice(session, 'Event details | Modern Workplace knowhow');
 
         
      /*   builder.Prompts.text(session,
@@ -293,7 +295,8 @@ bot.dialog('persona', [
                 .attachmentLayout(builder.AttachmentLayout.carousel)
                 .attachments(cards);
 
-           session.send(reply);
+            session.send(reply);
+            session.send('Hope you\'ve figured out which room to go! Do ping me if you\'d like to know about Modern Workplace. Just say 2');
         }
         else if (result.response == 2) {
             session.send('That is great! What would you like to know?');
