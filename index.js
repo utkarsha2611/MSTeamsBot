@@ -57,7 +57,7 @@ server.use(restify.bodyParser());
 server.use(expressSession({ secret: process.env.BOTAUTH_SECRET, resave: true, saveUninitialized: false }));
 // //server.use(passport.initialize());
 
-var ba = new botauth.BotAuthenticator(server, bot, { session: true, baseUrl: 'https://msteamsbot.azurewebsites.net', secret: process.env.BOTAUTH_SECRET, successRedirect: '/code' });
+var ba = new botauth.BotAuthenticator(server, bot, { session: true, baseUrl: 'https://mwpwebapp.azurewebsites.net', secret: process.env.BOTAUTH_SECRET, successRedirect: '/code' });
 
 ba.provider("aadv2", (options) => {
     // Use the v2 endpoint (applications configured by apps.dev.microsoft.com)
@@ -101,7 +101,7 @@ var luisRecognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL || "h
 var intentDialog = new builder.IntentDialog({ recognizers: [luisRecognizer] });
 bot.dialog('/', intentDialog);
 
-intentDialog.matches(/\b(hi|hello|hey|howdy|what's up)\b/i, '/sayHi') //Check for greetings using regex
+intentDialog.matches(/\b(hi|hello|hey|howdy|what's up)\b/i, '/signin') //Check for greetings using regex
     .matches(/logout/, "/logout")
     //   .matches(/signin/, "/signin")
     .matches('aboutEvent', '/about') //Check for LUIS intent to get definition
@@ -163,14 +163,14 @@ bot.dialog("/signin", [].concat(
 ));
 
 
-var azure = require('azure-storage');
+/*var azure = require('azure-storage');
 var tableSvc = azure.createTableService('msteamsstorage', 'KhLvvKS+f11lHS7t0+VBmuJ00Ha8hh1JadDUaC+g8TQ1UnG6J5HmJPcYbVGl6dEfm4VW/VvPsn1Zb5YfyrNXzA==');
 tableSvc.createTableIfNotExists('tablenew', function (error, result, response) {
     if (!error) {
         // Table exists or created
 
     }
-});
+});*/
 
 function getDetails(session)
 { return [
