@@ -163,20 +163,14 @@ bot.dialog("/signin", [].concat(
 ));
 
 
-/*var azure = require('azure-storage');
-var tableSvc = azure.createTableService('msteamsstorage', 'KhLvvKS+f11lHS7t0+VBmuJ00Ha8hh1JadDUaC+g8TQ1UnG6J5HmJPcYbVGl6dEfm4VW/VvPsn1Zb5YfyrNXzA==');
-tableSvc.createTableIfNotExists('tablenew', function (error, result, response) {
-    if (!error) {
-        // Table exists or created
-
-    }
-});*/
-
 function getDetails(session)
 { return [
         new builder.HeroCard(session)
         .title('Get introduced to the new workspace')
-        .text('https://www.microsoft.com/singapore/modern-workplace/'),
+        .text('https://www.microsoft.com/singapore/modern-workplace/')
+        .buttons([
+            builder.CardAction.openUrl(session, 'http://www.ezlink.com.sg/get-your-ez-link-card/where-the-cards-are-sold', 'Learn More')
+        ]),
           //  .text('Please proceed to Maker\'s Commons - devices and accessories are on display for interactivity purposes.Enjoy!'),
      
         new builder.HeroCard(session)
@@ -194,8 +188,6 @@ function getCardsAttachments(session) {
                 builder.CardImage.create(session, "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAzjAAAAJDVjNDRkYzM2LTAzZjctNDUwNi1iNTk2LWI4MGE3ZjFiOTI2Zg.jpg")
             ])
             .text('Please proceed to Maker\'s Commons - devices and accessories are on display for interactivity purposes.Enjoy!'),
-          //  .buttons(
-           //     builder.CardAction.dialogAction(session, "topnews", null, "Top News")),
 
         new builder.HeroCard(session)
             .title('Exciting expert Surface Pro device demos')
@@ -205,12 +197,8 @@ function getCardsAttachments(session) {
             ])
             .text(' Please proceed to Ideation Hub / Learning'),
         
-           // .subtitle('You are an Innovator if - ')
-          //  .text('You are a thinker.You constantly strive to reinvent, optimize processes and introduce new methods, ideas, or products.You appreciate fact- based approaches to create breakthrough results. Anybody can be an Innovator. Roles similar to an Innovator include - General Manager, Finance, Sales, Engineer, Analyst'),
         new builder.HeroCard(session)
             .title('Modern Workplace business solutions and applications like Microsoft 365 on the Surface Pro')
-           // .subtitle('You are a Collaborator if - ')
-
         .images([
             //Using this image: http://imgur.com/a/vl59A
             builder.CardImage.create(session, "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAA21AAAAJDQxZWQ5YzRiLWM1YTAtNDFmYS05YjJiLTExNDQ2NTIxN2VlMg.jpg")
@@ -220,7 +208,7 @@ function getCardsAttachments(session) {
         new builder.HeroCard(session)
             .title('Modern Meetings with Modern Devices')
             .images([
-                //Using this image: http://imgur.com/a/vl59A
+              
                 builder.CardImage.create(session, "https://d388w23p6r1vqc.cloudfront.net/img/profiles/532/profile_pic.png")
             ])
             .text('Please proceed to Ideation Hub / 3 '),
@@ -247,43 +235,17 @@ bot.dialog('persona', [
     function (session) {
         //session.send('entered');
         session.send('What can I help you with today?');
-        //builder.Prompts.text(session, 'Say 1 for Event details \n  2 for Modern Workplace knowhow');
+        builder.Prompts.text(session, 'Say 1 for Event details \n  2 for Modern Workplace knowhow');
         
-        builder.Prompts.choice(session, "Select one of these", "Event details | Modern Workplace knowhow");
+        //builder.Prompts.choice(session, "Select one of these", "Event details | Modern Workplace knowhow");
     },
     // function (session,result)
     function (session, result) {
         // session.send('entered 2');
         //  session.send(result);
         if (result.response == 1) {
-            /*  var username = session.userData.name;
-              session.send(username);*/
-            /* var rep = result.response;
- 
-             var entGen = azure.TableUtilities.entityGenerator;
-            
-                 var task = {
-                     PartitionKey: entGen.String(username.toString()),
-                     RowKey: entGen.String(rep.toString()),
-                     description: entGen.String(ques)
-                     //  description: entGen.String(username.toString())// store name of user
-                     // dueDate: entGen.DateTime(new Date(Date.UTC(2015, 6, 20))),
-                 }*/
 
-
-            //session.send('creating table');
-
-            //  session.send(task.description);
-            /*  tableSvc.insertEntity('tablenew', task, function (error, result, response) {
-                  if (!error) {
-                      // Entity inserted
-                      // session.send('saved in table');
-                  }
-                  else {
-                      session.send('You\'re already registered! See you at the event! :)');
-                  }
-              }); */
-
+           
             var cards = getCardsAttachments();
 
             // create reply with Carousel AttachmentLayout
