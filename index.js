@@ -248,12 +248,8 @@ bot.dialog('persona', [
         //session.send('entered');
         session.send('What can I help you with today?');
         //builder.Prompts.text(session, 'Say 1 for Event details \n  2 for Modern Workplace knowhow');
-        builder.Prompts.choice(session, 'Event details | Modern Workplace knowhow');
-
         
-     /*   builder.Prompts.text(session,
-            "Enter your choice! Pick one from options 1-3 ");*/
-
+        builder.Prompts.choice(session, "Select one of these", "Event details | Modern Workplace knowhow");
     },
     // function (session,result)
     function (session, result) {
