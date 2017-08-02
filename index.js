@@ -101,7 +101,7 @@ var luisRecognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL || "h
 var intentDialog = new builder.IntentDialog({ recognizers: [luisRecognizer] });
 bot.dialog('/', intentDialog);
 
-intentDialog.matches(/\b(hi|hello|hey|howdy|what's up)\b/i, '/signin') //Check for greetings using regex
+intentDialog.matches(/\b(hi|hello|hey|howdy|what's up)\b/i, '/sayHi') //Check for greetings using regex
     .matches(/logout/, "/logout")
     //   .matches(/signin/, "/signin")
     .matches('aboutEvent', '/about') //Check for LUIS intent to get definition
@@ -176,14 +176,12 @@ function getDetails(session)
 { return [
         new builder.HeroCard(session)
         .title('Get introduced to the new workspace')
-           
-            .images([
-                //Using this image: http://imgur.com/a/vl59A
-                builder.CardImage.create(session, "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAzjAAAAJDVjNDRkYzM2LTAzZjctNDUwNi1iNTk2LWI4MGE3ZjFiOTI2Zg.jpg")
-        ])
-        .buttons(builder.CardAction.openUrl(session,'https://www.microsoft.com/singapore/modern-workplace/' , "Know more"))
+        .text('https://www.microsoft.com/singapore/modern-workplace/'),
           //  .text('Please proceed to Maker\'s Commons - devices and accessories are on display for interactivity purposes.Enjoy!'),
-
+     
+        new builder.HeroCard(session)
+            .title('See how you can work better')
+            .text('https://www.microsoft.com/singapore/modern-workplace/'),
 ]}
 function getCardsAttachments(session) {
     return [
