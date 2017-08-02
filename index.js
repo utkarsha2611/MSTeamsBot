@@ -101,7 +101,7 @@ var luisRecognizer = new builder.LuisRecognizer(process.env.LUIS_MODEL_URL || "h
 var intentDialog = new builder.IntentDialog({ recognizers: [luisRecognizer] });
 bot.dialog('/', intentDialog);
 
-intentDialog.matches(/\b(hi|hello|hey|howdy|what's up)\b/i, '/signin') //Check for greetings using regex
+intentDialog.matches(/\b(hi|hello|hey|howdy|what's up)\b/i, '/sayHi') //Check for greetings using regex
     .matches(/logout/, "/logout")
     //   .matches(/signin/, "/signin")
     .matches('aboutEvent', '/about') //Check for LUIS intent to get definition
@@ -220,8 +220,6 @@ function getCardsAttachments(session) {
                 builder.CardImage.create(session, "https://d388w23p6r1vqc.cloudfront.net/img/profiles/532/profile_pic.png")
             ])
             .text('Please approach any of the ambassadors and they will direct a Steelcase spokesperson to aid you in the discussion')
-
-
     ];
     
     session.endDialog();
