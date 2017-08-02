@@ -47,7 +47,7 @@ server.get('/code', restify.serveStatic({
     'directory': path.join(__dirname, 'public'),
     'file': 'code.html'
 }));
-
+bot.use(builder.Middleware.dialogVersion({ version: 1.0, resetCommand: /^reset/i })); 
 //=========================================================
 // Auth Setup
 //=========================================================
