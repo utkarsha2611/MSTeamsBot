@@ -85,7 +85,7 @@ function getCardsAttachments(session) {
         new builder.HeroCard(session)
             .title('1: Device Interactivity - An immersive device experience')
             .images([
-                builder.CardImage.create(session, "https://raw.githubusercontent.com/utkarsha2611/MSTeamsBot/master/images/makerscommons.PNG")
+                builder.CardImage.create(session, "https://raw.githubusercontent.com/utkarsha2611/MSTeamsBot/master/images/makers.PNG")
             ])
             .text('Please proceed to <b>Makers Commons</b> - devices and accessories are on display for interactivity purposes. Enjoy!'),
 
@@ -108,7 +108,7 @@ function getCardsAttachments(session) {
             .title('4: Modern Meetings with Modern Devices')
             .images([
 
-                builder.CardImage.create(session, "https://raw.githubusercontent.com/utkarsha2611/MSTeamsBot/master/images/id3.PNG")
+                builder.CardImage.create(session, "https://raw.githubusercontent.com/utkarsha2611/MSTeamsBot/master/images/id33.PNG")
             ])
             .text('Please proceed to : <b>Ideation Hub - Modern Meetings</b>'),
 
@@ -116,14 +116,14 @@ function getCardsAttachments(session) {
             .title('5: Modern Project Management tools for delivering high quality outcomes')
             .images([
                 //Using this image: http://imgur.com/a/vl59A
-                builder.CardImage.create(session, "https://raw.githubusercontent.com/utkarsha2611/MSTeamsBot/master/images/id4.PNG")
+                builder.CardImage.create(session, "https://raw.githubusercontent.com/utkarsha2611/MSTeamsBot/master/images/id44.PNG")
             ])
             .text('Please proceed to : <b>Focus Seat - Modern Project Management</b>'),
         new builder.HeroCard(session)
             .title('6: Physical set up of the Modern Workplace')
             .images([
                 //Using this image: http://imgur.com/a/vl59A
-                builder.CardImage.create(session, "https://raw.githubusercontent.com/utkarsha2611/MSTeamsBot/master/images/id5.PNG")
+                builder.CardImage.create(session, "https://raw.githubusercontent.com/utkarsha2611/MSTeamsBot/master/images/id55.PNG")
             ])
             .text('Please approach any of the <b>ambassadors</b> and they will direct a Steelcase representative to assist.'),
     ];
