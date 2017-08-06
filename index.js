@@ -215,7 +215,7 @@ bot.dialog('persona', [
 
     function (session) {
         session.send('What can I help you with today?');
-        builder.Prompts.text(session, 'Say 1 for Event details     2 for Modern Workplace details');
+        builder.Prompts.text(session, 'Say 1 for Event details and 2 for Modern Workplace details');
     },
     function (session, result) {
         if (result.response == 1) {
