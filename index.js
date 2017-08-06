@@ -92,7 +92,6 @@ function getCardsAttachments(session) {
         new builder.HeroCard(session)
             .title('2: Exciting expert Surface Pro device demos')
             .images([
-                //Using this image: http://imgur.com/a/vl59A
                 builder.CardImage.create(session, "https://raw.githubusercontent.com/utkarsha2611/MSTeamsBot/master/images/IdeationHub1.PNG")
             ])
             .text('Please proceed to:<b>Ideation Hub (Learning) - Modern Devices for Intelligent Integration</b>'),
@@ -101,7 +100,7 @@ function getCardsAttachments(session) {
             .title('3: Modern Workplace business solutions and applications like Microsoft 365 on the Surface Pro')
             .images([
                 //Using this image: http://imgur.com/a/vl59A
-                builder.CardImage.create(session, "https://raw.githubusercontent.com/utkarsha2611/MSTeamsBot/master/images/ideationhub2.PNG")
+                builder.CardImage.create(session, "https://raw.githubusercontent.com/utkarsha2611/MSTeamsBot/master/images/id2.PNG")
             ])
             .text('Please proceed to: <b>Ideation Hub - Modern Business Solutions</b>'),
 
@@ -136,7 +135,7 @@ bot.dialog('/persona', [
     function (session) {
         //session.send('entered');
         session.send('What can I help you with today?');
-        builder.Prompts.text(session, 'Say\n 1 for Event details \n  2 for Modern Workplace knowhow');
+        builder.Prompts.text(session, 'Say\n\n 1 for Event details \n\n  2 for Modern Workplace knowhow');
     },
     // function (session,result)
     function (session, results) {
