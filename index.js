@@ -136,7 +136,7 @@ bot.dialog('/persona', [
     function (session) {
         //session.send('entered');
         session.send('What can I help you with today?');
-        builder.Prompts.text(session, 'Say\n\n 1 for Event details \n\n  2 for Modern Workplace knowhow');
+        builder.Prompts.text(session, 'Say\n 1 for Event details \n  2 for Modern Workplace knowhow');
     },
     // function (session,result)
     function (session, results) {
