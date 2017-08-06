@@ -108,7 +108,7 @@ function getCardsAttachments(session) {
             .title('4: Modern Meetings with Modern Devices')
             .images([
 
-                builder.CardImage.create(session, "https://raw.githubusercontent.com/utkarsha2611/MSTeamsBot/master/images/id33.PNG")
+                builder.CardImage.create(session, "https://raw.githubusercontent.com/utkarsha2611/MSTeamsBot/master/images/id333.PNG")
             ])
             .text('Please proceed to : <b>Ideation Hub - Modern Meetings</b>'),
 
