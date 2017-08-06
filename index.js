@@ -132,8 +132,7 @@ function getCardsAttachments(session) {
     session.endDialog();
 }
 
-bot.dialog('persona', [
-
+bot.dialog('/persona', [
     function (session) {
         //session.send('entered');
         session.send('What can I help you with today?');
