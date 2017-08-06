@@ -60,7 +60,7 @@ function getDetails(session) {
         new builder.HeroCard(session)
             .title('Get introduced to the new workspace')
             .buttons([
-                builder.CardAction.openUrl(session, 'https://www.microsoft.com/singapore/modern-workplace/', 'Learn More')
+                builder.CardAction.openUrl(session, 'https://ncmedia.azureedge.net/ncmedia/2017/06/MS_Workplace2020_Singapore_EL_office365-1.png', 'Learn More')
             ]),
         new builder.HeroCard(session)
             .title('See how you can work better')
@@ -77,15 +77,15 @@ function getDetails(session) {
 function getCardsAttachments(session) {
     return [
         new builder.HeroCard(session)
-            .title('Here\'s the site map for your reference')
+            .title('Site map')
             .images([
-                builder.CardImage.create(session, "https://github.com/utkarsha2611/MSTeamsBot/blob/master/images/GetImage.jpg")
-            ]),
+                builder.CardImage.create(session, "https://raw.githubusercontent.com/utkarsha2611/MSTeamsBot/master/images/GetImage.jpg")
+            ])
+        .text('For your reference'),
         new builder.HeroCard(session)
             .title('1: Device Interactivity - An immersive device experience')
             .images([
-                //Using this image: http://imgur.com/a/vl59A
-                builder.CardImage.create(session, "https://github.com/utkarsha2611/MSTeamsBot/blob/master/images/makerscommons.PNG")
+                builder.CardImage.create(session, "https://raw.githubusercontent.com/utkarsha2611/MSTeamsBot/master/images/makerscommons.PNG")
             ])
             .text('Please proceed to <b>Makers Commons</b> - devices and accessories are on display for interactivity purposes. Enjoy!'),
 
@@ -93,38 +93,38 @@ function getCardsAttachments(session) {
             .title('2: Exciting expert Surface Pro device demos')
             .images([
                 //Using this image: http://imgur.com/a/vl59A
-                builder.CardImage.create(session, "https://d388w23p6r1vqc.cloudfront.net/img/profiles/532/profile_pic.png")
+                builder.CardImage.create(session, "https://raw.githubusercontent.com/utkarsha2611/MSTeamsBot/master/images/IdeationHub1.PNG")
             ])
-            .text('Please proceed to: <b>Ideation Hub (Learning) - Modern Devices for Intelligent Integration</b>'),
+            .text('Please proceed to:<b>Ideation Hub (Learning) - Modern Devices for Intelligent Integration</b>'),
 
         new builder.HeroCard(session)
             .title('3: Modern Workplace business solutions and applications like Microsoft 365 on the Surface Pro')
             .images([
                 //Using this image: http://imgur.com/a/vl59A
-                builder.CardImage.create(session, "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAA21AAAAJDQxZWQ5YzRiLWM1YTAtNDFmYS05YjJiLTExNDQ2NTIxN2VlMg.jpg")
+                builder.CardImage.create(session, "https://raw.githubusercontent.com/utkarsha2611/MSTeamsBot/master/images/ideationhub2.PNG")
             ])
-            .text('Please proceed to:<b> Ideation Hub - Modern Business Solutions</b>'),
+            .text('Please proceed to: <b>Ideation Hub - Modern Business Solutions</b>'),
 
         new builder.HeroCard(session)
             .title('4: Modern Meetings with Modern Devices')
             .images([
 
-                builder.CardImage.create(session, "https://d388w23p6r1vqc.cloudfront.net/img/profiles/532/profile_pic.png")
+                builder.CardImage.create(session, "https://raw.githubusercontent.com/utkarsha2611/MSTeamsBot/master/images/id3.PNG")
             ])
-            .text('Please proceed to :<b> Ideation Hub - Modern Meetings</b>'),
+            .text('Please proceed to : <b>Ideation Hub - Modern Meetings</b>'),
 
         new builder.HeroCard(session)
             .title('5: Modern Project Management tools for delivering high quality outcomes')
             .images([
                 //Using this image: http://imgur.com/a/vl59A
-                builder.CardImage.create(session, "https://d388w23p6r1vqc.cloudfront.net/img/profiles/532/profile_pic.png")
+                builder.CardImage.create(session, "https://raw.githubusercontent.com/utkarsha2611/MSTeamsBot/master/images/id4.PNG")
             ])
             .text('Please proceed to : <b>Focus Seat - Modern Project Management</b>'),
         new builder.HeroCard(session)
             .title('6: Physical set up of the Modern Workplace')
             .images([
                 //Using this image: http://imgur.com/a/vl59A
-                builder.CardImage.create(session, "https://d388w23p6r1vqc.cloudfront.net/img/profiles/532/profile_pic.png")
+                builder.CardImage.create(session, "https://raw.githubusercontent.com/utkarsha2611/MSTeamsBot/master/images/id5.PNG")
             ])
             .text('Please approach any of the <b>ambassadors</b> and they will direct a Steelcase representative to assist.'),
     ];
@@ -136,7 +136,7 @@ bot.dialog('/persona', [
     function (session) {
         //session.send('entered');
         session.send('What can I help you with today?');
-        builder.Prompts.text(session, 'Say 1 for Event details \n\n  2 for Modern Workplace knowhow');
+        builder.Prompts.text(session, 'Say\n\n 1 for Event details \n\n  2 for Modern Workplace knowhow');
     },
     // function (session,result)
     function (session, results) {
@@ -146,7 +146,6 @@ bot.dialog('/persona', [
         else if (results.response == 2) {
             session.replaceDialog('/option2');
         }
-        //else { builder.Prompts.text(session, "Invalid entry! Please choose from 1-3 only!"); }
         else { session.endDialog("Invalid entry! Let'\s start again. Say Hi"); }
     }]);
 
@@ -158,16 +157,17 @@ bot.dialog('/option1', [
             .attachmentLayout(builder.AttachmentLayout.carousel)
             .attachments(cards);
         session.send(reply);
-        builder.Prompts.text(session, 'Hope you\'ve figured out which room to go! Do ping me if you\'d like to know about Modern Workplace. Just say 2');
+        builder.Prompts.text(session, 'Hope you\'ve figured out which room to go! Do ping me if you\'d like to know about Modern Workplace. Just say 2 or you may say no');
     },
     function (session, results) {
         if (results.response == 2) {
             session.replaceDialog('/option2');
         }
-        else {
+        else if (results.response === 'no') {
             session.send('Alright! If you have any questions, the team from Microsoft is here to help, please approach our Microsoft ambassadors who will help you out. Enjoy yourself at the event! :)');
             session.replaceDialog('/');
         }
+        else { session.endDialog("Invalid entry! Let'\s start again. Say Hi"); }
     }
 ]);
 
@@ -180,15 +180,17 @@ bot.dialog('/option2', [
             .attachmentLayout(builder.AttachmentLayout.carousel)
             .attachments(card);
         session.send(rep);
-        builder.Prompts.text(session, 'If you would also like to check the event details again, just say 1');
+        builder.Prompts.text(session, 'If you would also like to check the event details again, just say 1 or you may say no');
     },
     function (session, results) {
         if (results.response == 1) {
             session.replaceDialog('/option1');
         }
-        else {
+       
+       else if (results.response === 'no') {
             session.send('Alright! If you have any questions, the team from Microsoft is here to help, please approach our Microsoft ambassadors who will help you out. Enjoy yourself at the event! :)');
             session.replaceDialog('/');
         }
+        else { session.endDialog("Invalid entry! Let'\s start again. Say Hi"); }
     }
 ]);
