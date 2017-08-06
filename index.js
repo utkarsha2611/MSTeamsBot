@@ -106,15 +106,7 @@ intentDialog.matches(/\b(hi|hello|hey|howdy|what's up)\b/i, '/signin') //Check f
     //   .matches(/signin/, "/signin")
     .matches('aboutEvent', '/about') //Check for LUIS intent to get definition
     .matches('askQuesn', '/ask') //Check for LUIS intent to get definition
-  //  .matches('cannot', '/cannot') //Check for LUIS intent to answer why it was introduced
-  //  .matches('forward', '/forward') //Check for LUIS intent to answer why it was introduced
-  //  .matches('guestReg', '/guestRegister') //Check for LUIS intent to answer how to access it
-    .matches('modernWP', '/modernWP') //Check for LUIS intent to answer how is it different from SAP 
-    .matches('unregister', '/unregister') //Check for LUIS intent to answer what it looks like
-    .matches('when', '/when') //Check for LUIS intent to answer how it affects pay
-    .matches('where', '/where') //Check for LUIS intent to answer how it affects pay
     .matches('who', '/who') //Check for LUIS intent to answer how it affects pay
- //   .matches('why', '/why') //Check for LUIS intent to answer how it affects pay
     .onDefault(builder.DialogAction.send("Sorry, I didn't understand what you said.")); //Default message if all checks fail
 
 
@@ -124,7 +116,8 @@ bot.dialog('/about', function (session) {
 });
 
 bot.dialog('/sayHi', function (session) {
-    session.send('Try saying things like "What is the Modern workplace?"');
+    session.send('Hello, I\'m AidingAly and I can help you navigate Co-Lab, where the \'Future of Work is Creative\'');
+    session.beginDialog('persona');
     session.endDialog();
 });
 
@@ -132,8 +125,6 @@ bot.dialog('/ask', function (session) {
     session.send('Sure, send me the question and I will get back to you in a bit.');
     session.endDialog();
 });
-
-
 
 bot.dialog('/modernWP', function (session) {
     session.send('It’s a new way of working! Watch this video to find out more: https://youtu.be/veLoHcgN7pc');
@@ -146,136 +137,117 @@ bot.dialog("/logout", (session) => {
     session.endDialog("logged_out");
 });
 
-var username;
-bot.dialog("/signin", [].concat(
-    ba.authenticate("aadv2"),
-    (session, args, skip) => {
-        let user = ba.profile(session, "aadv2");
-        session.send('Hello ' + user.displayName + ', I\'m AidingAly and I can help you navigate Co-Lab, where the \'Future of Work is Creative\'');
-        session.endDialog();
-        //  username = user.displayName;
-        username = user.displayName;
-        session.userData.accessToken = user.accessToken;
-        session.userData.refreshToken = user.refreshToken;
-        //  session.beginDialog('workPrompt');
-        session.beginDialog('persona');
-    }
-));
-
 
 function getDetails(session)
 { return [
         new builder.HeroCard(session)
         .title('Get introduced to the new workspace')
-        .subtitle('https://www.microsoft.com/singapore/modern-workplace/')
-        .text('https://www.microsoft.com/singapore/modern-workplace/')
         .buttons([
-            builder.CardAction.openUrl(session, 'http://www.ezlink.com.sg/get-your-ez-link-card/where-the-cards-are-sold', 'Learn More')
-        ]),
-          //  .text('Please proceed to Maker\'s Commons - devices and accessories are on display for interactivity purposes.Enjoy!'),
-     
+            builder.CardAction.openUrl(session, 'https://ncmedia.azureedge.net/ncmedia/2017/06/MS_Workplace2020_Singapore_EL_office365-1.png', 'Learn More')
+        ]),    
         new builder.HeroCard(session)
             .title('See how you can work better')
-            .text('https://www.microsoft.com/singapore/modern-workplace/'),
+            .buttons([
+                builder.CardAction.openUrl(session, 'https://www.microsoft.com/singapore/modern-workplace/', 'Learn More')
+            ]),
+        new builder.HeroCard(session)
+            .title('Check out this video to know about Modern Workplace')
+            .buttons([
+                builder.CardAction.openUrl(session, 'https://youtu.be/veLoHcgN7pc', 'Watch video')
+            ])          
 ]}
 function getCardsAttachments(session) {
     return [
         new builder.HeroCard(session)
-            .title('Device Immersion Experience')
-            .subtitle('Free and easy, Touch and Feel')
-         
+            .title('1: Device Interactivity')
+            .subtitle('An immersive device experience')
             .images([
                 //Using this image: http://imgur.com/a/vl59A
                 builder.CardImage.create(session, "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAzjAAAAJDVjNDRkYzM2LTAzZjctNDUwNi1iNTk2LWI4MGE3ZjFiOTI2Zg.jpg")
             ])
-            .text('Please proceed to Maker\'s Commons - devices and accessories are on display for interactivity purposes.Enjoy!'),
+            .text('Please proceed to Makers Commons - devices and accessories are on display for interactivity purposes. Enjoy!'),
 
         new builder.HeroCard(session)
-            .title('Exciting expert Surface Pro device demos')
+            .title('2: Exciting expert Surface Pro device demos')
             .images([
                 //Using this image: http://imgur.com/a/vl59A
                 builder.CardImage.create(session, "https://d388w23p6r1vqc.cloudfront.net/img/profiles/532/profile_pic.png")
             ])
-            .text(' Please proceed to Ideation Hub / Learning'),
+            .text('Please proceed to: Ideation Hub (Learning) - Modern Devices for Intelligent Integration'),
         
         new builder.HeroCard(session)
-            .title('Modern Workplace business solutions and applications like Microsoft 365 on the Surface Pro')
+            .title('3: Modern Workplace business solutions and applications like Microsoft 365 on the Surface Pro')
         .images([
             //Using this image: http://imgur.com/a/vl59A
             builder.CardImage.create(session, "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAA21AAAAJDQxZWQ5YzRiLWM1YTAtNDFmYS05YjJiLTExNDQ2NTIxN2VlMg.jpg")
             ])
-            .text('Please proceed to Ideation Hub / 2'),
+            .text('Please proceed to: Ideation Hub - Modern Business Solutions'),
 
         new builder.HeroCard(session)
-            .title('Modern Meetings with Modern Devices')
+            .title('4: Modern Meetings with Modern Devices')
             .images([
               
                 builder.CardImage.create(session, "https://d388w23p6r1vqc.cloudfront.net/img/profiles/532/profile_pic.png")
             ])
-            .text('Please proceed to Ideation Hub / 3 '),
+            .text('Please proceed to : Ideation Hub - Modern Meetings'),
 
         new builder.HeroCard(session)
-            .title('Physical set up of the Modern Workplace ')
+            .title('5: Modern Project Management tools for delivering high quality outcomes')
             .images([
                 //Using this image: http://imgur.com/a/vl59A
                 builder.CardImage.create(session, "https://d388w23p6r1vqc.cloudfront.net/img/profiles/532/profile_pic.png")
             ])
-            .text('Please approach any of the ambassadors and they will direct a Steelcase spokesperson to aid you in the discussion')
+            .text('Please proceed to : Focus Seat - Modern Project Management'),
+
+        new builder.HeroCard(session)
+            .title('6: Physical set up of the Modern Workplace')
+            .images([
+                //Using this image: http://imgur.com/a/vl59A
+                builder.CardImage.create(session, "https://d388w23p6r1vqc.cloudfront.net/img/profiles/532/profile_pic.png")
+            ])
+            .text('Please approach any of the ambassadors and they will direct a Steelcase representative to assist.')
     ];
     
     session.endDialog();
 }
 
-
-
-
 bot.dialog('persona', [
 
     function (session) {
-        //session.send('entered');
         session.send('What can I help you with today?');
-        builder.Prompts.text(session, 'Say 1 for Event details \n  2 for Modern Workplace knowhow');
-        
-        //builder.Prompts.choice(session, "Select one of these", "Event details | Modern Workplace knowhow");
+        builder.Prompts.text(session, 'Say 1 for Event details     2 for Modern Workplace details');
     },
-    // function (session,result)
     function (session, result) {
-        // session.send('entered 2');
-        //  session.send(result);
         if (result.response == 1) {
-
-           
-            var cards = getCardsAttachments();
-
-            // create reply with Carousel AttachmentLayout
-            var reply = new builder.Message(session)
-                .attachmentLayout(builder.AttachmentLayout.carousel)
-                .attachments(cards);
-
-            session.send(reply);
-            session.send('Hope you\'ve figured out which room to go! Do ping me if you\'d like to know about Modern Workplace. Just say 2');
+            
+                var cards = getCardsAttachments();
+                // create reply with Carousel AttachmentLayout
+                var reply = new builder.Message(session)
+                    .attachmentLayout(builder.AttachmentLayout.carousel)
+                    .attachments(cards);
+                session.send(reply);
+                session.send('Hope you\'ve figured out which room to go!');
+                builder.Prompts.text('Do ping me if you\'d like to know about Modern Workplace.Just say 2');
+                function(session, result) {
+                    if (result.response == 2) {
+                        session.replaceDialog('/')
+                    }
+                }
+                
+                    }
+                }
+            }
         }
         else if (result.response == 2) {
             session.send('That is great! What would you like to know?');
-
             var card = getDetails();
-
             // create reply with Carousel AttachmentLayout
             var rep = new builder.Message(session)
                 .attachmentLayout(builder.AttachmentLayout.carousel)
                 .attachments(card);
-
             session.send(rep);
-
-
-            //session.send('1. Get introduced to the new workspace - https://ncmedia.azureedge.net/ncmedia/2017/06/MS_Workplace2020_Singapore_EL_office365-1.png');
-           // session.send('2. See how you can work better https://www.microsoft.com/singapore/modern-workplace/');
-            session.send('It’s a new way of working! Watch this video to find out more: https://youtu.be/veLoHcgN7pc');
-           // session.send('You can also ask me more details about the event. Try saying "What is Modern Workplace?" To Logout, say logout');
-            session.beginDialog('/');
+           // session.beginDialog('/');
         }
-
-        //else { builder.Prompts.text(session, "Invalid entry! Please choose from 1-3 only!"); }
         else { session.send("Invalid entry! Let'\s start again. Say Hi"); }
         session.endDialog();
     
