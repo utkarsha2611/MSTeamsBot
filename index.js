@@ -1,4 +1,3 @@
-
 // 'use strict';
 
 require('dotenv').config();
@@ -47,7 +46,7 @@ server.get('/code', restify.serveStatic({
     'directory': path.join(__dirname, 'public'),
     'file': 'code.html'
 }));
-bot.use(builder.Middleware.dialogVersion({ version: 1.0, resetCommand: /^reset/i })); 
+bot.use(builder.Middleware.dialogVersion({ version: 1.0, resetCommand: /^reset/i }));
 //=========================================================
 // Auth Setup
 //=========================================================
@@ -106,15 +105,15 @@ intentDialog.matches(/\b(hi|hello|hey|howdy|what's up)\b/i, '/signin') //Check f
     //   .matches(/signin/, "/signin")
     .matches('aboutEvent', '/about') //Check for LUIS intent to get definition
     .matches('askQuesn', '/ask') //Check for LUIS intent to get definition
-  //  .matches('cannot', '/cannot') //Check for LUIS intent to answer why it was introduced
-  //  .matches('forward', '/forward') //Check for LUIS intent to answer why it was introduced
-  //  .matches('guestReg', '/guestRegister') //Check for LUIS intent to answer how to access it
+    //  .matches('cannot', '/cannot') //Check for LUIS intent to answer why it was introduced
+    //  .matches('forward', '/forward') //Check for LUIS intent to answer why it was introduced
+    //  .matches('guestReg', '/guestRegister') //Check for LUIS intent to answer how to access it
     .matches('modernWP', '/modernWP') //Check for LUIS intent to answer how is it different from SAP 
     .matches('unregister', '/unregister') //Check for LUIS intent to answer what it looks like
     .matches('when', '/when') //Check for LUIS intent to answer how it affects pay
     .matches('where', '/where') //Check for LUIS intent to answer how it affects pay
     .matches('who', '/who') //Check for LUIS intent to answer how it affects pay
- //   .matches('why', '/why') //Check for LUIS intent to answer how it affects pay
+    //   .matches('why', '/why') //Check for LUIS intent to answer how it affects pay
     .onDefault(builder.DialogAction.send("Sorry, I didn't understand what you said.")); //Default message if all checks fail
 
 
@@ -163,27 +162,28 @@ bot.dialog("/signin", [].concat(
 ));
 
 
-function getDetails(session)
-{ return [
+function getDetails(session) {
+    return [
         new builder.HeroCard(session)
-        .title('Get introduced to the new workspace')
-        .subtitle('https://www.microsoft.com/singapore/modern-workplace/')
-        .text('https://www.microsoft.com/singapore/modern-workplace/')
-        .buttons([
-            builder.CardAction.openUrl(session, 'http://www.ezlink.com.sg/get-your-ez-link-card/where-the-cards-are-sold', 'Learn More')
-        ]),
-          //  .text('Please proceed to Maker\'s Commons - devices and accessories are on display for interactivity purposes.Enjoy!'),
-     
+            .title('Get introduced to the new workspace')
+            .subtitle('https://www.microsoft.com/singapore/modern-workplace/')
+            .text('https://www.microsoft.com/singapore/modern-workplace/')
+            .buttons([
+                builder.CardAction.openUrl(session, 'http://www.ezlink.com.sg/get-your-ez-link-card/where-the-cards-are-sold', 'Learn More')
+            ]),
+        //  .text('Please proceed to Maker\'s Commons - devices and accessories are on display for interactivity purposes.Enjoy!'),
+
         new builder.HeroCard(session)
             .title('See how you can work better')
             .text('https://www.microsoft.com/singapore/modern-workplace/'),
-]}
+    ]
+}
 function getCardsAttachments(session) {
     return [
         new builder.HeroCard(session)
             .title('Device Immersion Experience')
             .subtitle('Free and easy, Touch and Feel')
-         
+
             .images([
                 //Using this image: http://imgur.com/a/vl59A
                 builder.CardImage.create(session, "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAzjAAAAJDVjNDRkYzM2LTAzZjctNDUwNi1iNTk2LWI4MGE3ZjFiOTI2Zg.jpg")
@@ -197,32 +197,32 @@ function getCardsAttachments(session) {
                 builder.CardImage.create(session, "https://d388w23p6r1vqc.cloudfront.net/img/profiles/532/profile_pic.png")
             ])
             .text(' Please proceed to Ideation Hub / Learning'),
-        
+
         new builder.HeroCard(session)
             .title('Modern Workplace business solutions and applications like Microsoft 365 on the Surface Pro')
-        .images([
-            //Using this image: http://imgur.com/a/vl59A
-            builder.CardImage.create(session, "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAA21AAAAJDQxZWQ5YzRiLWM1YTAtNDFmYS05YjJiLTExNDQ2NTIxN2VlMg.jpg")
+            .images([
+                //Using this image: http://imgur.com/a/vl59A
+                builder.CardImage.create(session, "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAA21AAAAJDQxZWQ5YzRiLWM1YTAtNDFmYS05YjJiLTExNDQ2NTIxN2VlMg.jpg")
             ])
             .text('Please proceed to Ideation Hub / 2'),
 
         new builder.HeroCard(session)
             .title('Modern Meetings with Modern Devices')
             .images([
-              
+
                 builder.CardImage.create(session, "https://d388w23p6r1vqc.cloudfront.net/img/profiles/532/profile_pic.png")
             ])
-            .text('Please proceed to Ideation Hub / 3 '),
+            .text('Please proceed to Ideation Hub / 3 '),
 
         new builder.HeroCard(session)
-            .title('Physical set up of the Modern Workplace ')
+            .title('Physical set up of the Modern Workplace ')
             .images([
                 //Using this image: http://imgur.com/a/vl59A
                 builder.CardImage.create(session, "https://d388w23p6r1vqc.cloudfront.net/img/profiles/532/profile_pic.png")
             ])
             .text('Please approach any of the ambassadors and they will direct a Steelcase spokesperson to aid you in the discussion')
     ];
-    
+
     session.endDialog();
 }
 
@@ -235,7 +235,7 @@ bot.dialog('persona', [
         //session.send('entered');
         session.send('What can I help you with today?');
         builder.Prompts.text(session, 'Say 1 for Event details \n  2 for Modern Workplace knowhow');
-        
+
         //builder.Prompts.choice(session, "Select one of these", "Event details | Modern Workplace knowhow");
     },
     // function (session,result)
@@ -244,7 +244,7 @@ bot.dialog('persona', [
         //  session.send(result);
         if (result.response == 1) {
 
-           
+
             var cards = getCardsAttachments();
 
             // create reply with Carousel AttachmentLayout
@@ -269,14 +269,14 @@ bot.dialog('persona', [
 
 
             //session.send('1. Get introduced to the new workspace - https://ncmedia.azureedge.net/ncmedia/2017/06/MS_Workplace2020_Singapore_EL_office365-1.png');
-           // session.send('2. See how you can work better https://www.microsoft.com/singapore/modern-workplace/');
+            // session.send('2. See how you can work better https://www.microsoft.com/singapore/modern-workplace/');
             session.send('It’s a new way of working! Watch this video to find out more: https://youtu.be/veLoHcgN7pc');
-           // session.send('You can also ask me more details about the event. Try saying "What is Modern Workplace?" To Logout, say logout');
+            // session.send('You can also ask me more details about the event. Try saying "What is Modern Workplace?" To Logout, say logout');
             session.beginDialog('/');
         }
 
         //else { builder.Prompts.text(session, "Invalid entry! Please choose from 1-3 only!"); }
         else { session.send("Invalid entry! Let'\s start again. Say Hi"); }
         session.endDialog();
-    
+
     }]);
