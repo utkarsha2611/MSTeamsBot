@@ -85,7 +85,7 @@ function getCardsAttachments(session) {
             .title('1: Device Interactivity - An immersive device experience')
             .images([
                 //Using this image: http://imgur.com/a/vl59A
-                builder.CardImage.create(session, "https://github.com/utkarsha2611/MSTeamsBot/blob/master/images/makerscommons.PNG")
+                builder.CardImage.create(session, "https://raw.githubusercontent.com/utkarsha2611/MSTeamsBot/master/images/makerscommons.PNG")
             ])
             .text('Please proceed to <b>Makers Commons</b> - devices and accessories are on display for interactivity purposes. Enjoy!'),
 
