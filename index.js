@@ -79,7 +79,7 @@ function getCardsAttachments(session) {
         new builder.HeroCard(session)
             .title('Site map')
             .images([
-                builder.CardImage.create(session, "https://raw.githubusercontent.com/utkarsha2611/MSTeamsBot/master/images/GetImage.jpg")
+                builder.CardImage.create(session, "https://raw.githubusercontent.com/utkarsha2611/MSTeamsBot/master/images/sitemap.jpg")
             ])
         .text('For your reference'),
         new builder.HeroCard(session)
