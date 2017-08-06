@@ -239,44 +239,57 @@ bot.dialog('persona', [
         //builder.Prompts.choice(session, "Select one of these", "Event details | Modern Workplace knowhow");
     },
     // function (session,result)
-    function (session, result) {
-        // session.send('entered 2');
-        //  session.send(result);
-        if (result.response == 1) {
-
-
-            var cards = getCardsAttachments();
-
-            // create reply with Carousel AttachmentLayout
-            var reply = new builder.Message(session)
-                .attachmentLayout(builder.AttachmentLayout.carousel)
-                .attachments(cards);
-
-            session.send(reply);
-            session.send('Hope you\'ve figured out which room to go! Do ping me if you\'d like to know about Modern Workplace. Just say 2');
+    function (session, results) {
+        if (results.response == 1) {
+            session.replaceDialog('/option1');
         }
-        else if (result.response == 2) {
-            session.send('That is great! What would you like to know?');
-
-            var card = getDetails();
-
-            // create reply with Carousel AttachmentLayout
-            var rep = new builder.Message(session)
-                .attachmentLayout(builder.AttachmentLayout.carousel)
-                .attachments(card);
-
-            session.send(rep);
-
-
-            //session.send('1. Get introduced to the new workspace - https://ncmedia.azureedge.net/ncmedia/2017/06/MS_Workplace2020_Singapore_EL_office365-1.png');
-            // session.send('2. See how you can work better https://www.microsoft.com/singapore/modern-workplace/');
-            session.send('It’s a new way of working! Watch this video to find out more: https://youtu.be/veLoHcgN7pc');
-            // session.send('You can also ask me more details about the event. Try saying "What is Modern Workplace?" To Logout, say logout');
-            session.beginDialog('/');
+        else if (results.response == 2) {
+            session.replaceDialog('/option2');
         }
-
         //else { builder.Prompts.text(session, "Invalid entry! Please choose from 1-3 only!"); }
-        else { session.send("Invalid entry! Let'\s start again. Say Hi"); }
-        session.endDialog();
-
+        else { session.endDialog("Invalid entry! Let'\s start again. Say Hi"); }
     }]);
+
+bot.dialog('/option1', [
+    function (session) {
+        var cards = getCardsAttachments();
+        // create reply with Carousel AttachmentLayout
+        var reply = new builder.Message(session)
+            .attachmentLayout(builder.AttachmentLayout.carousel)
+            .attachments(cards);
+        session.send(reply);
+        builder.Prompts.text(session, 'Hope you\'ve figured out which room to go! Do ping me if you\'d like to know about Modern Workplace. Just say 2');
+    },
+    function (session, results) {
+        if (results.response == 2) {
+            session.replaceDialog('/option2');
+        }
+        else {
+            session.send('Alright. Enjoy yourself at the event');
+            session.replaceDialog('/');
+        }
+    }
+]);
+
+bot.dialog('/option2', [
+    function (session) {
+        session.send('That is great! What would you like to know?');
+        var card = getDetails();
+        // create reply with Carousel AttachmentLayout
+        var rep = new builder.Message(session)
+            .attachmentLayout(builder.AttachmentLayout.carousel)
+            .attachments(card);
+        session.send(rep);
+        session.send('It’s a new way of working! Watch this video to find out more: https://youtu.be/veLoHcgN7pc');
+        builder.Prompts.text(session, 'If you would also like to check the event details, just say 1');
+    },
+    function (session, results) {
+        if (results.response == 1) {
+            session.replaceDialog('/option1');
+        }
+        else {
+            session.send('Alright. Enjoy yourself at the event');
+            session.replaceDialog('/');
+        }
+    }
+]);
