@@ -77,11 +77,10 @@ function getDetails(session) {
 function getCardsAttachments(session) {
     return [
         new builder.HeroCard(session)
-            .title('1: Device Interactivity - An immersive device experience')
+            .title('Here\'s the site map for your reference')
             .images([
-                builder.CardImage.create(session, "https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAzjAAAAJDVjNDRkYzM2LTAzZjctNDUwNi1iNTk2LWI4MGE3ZjFiOTI2Zg.jpg")
-            ])
-            .text('Please proceed to <b>Makers Commons</b> - devices and accessories are on display for interactivity purposes. Enjoy!'),
+                builder.CardImage.create(session, "https://github.com/utkarsha2611/MSTeamsBot/blob/master/images/GetImage.jpg")
+            ]),
         new builder.HeroCard(session)
             .title('1: Device Interactivity - An immersive device experience')
             .images([
