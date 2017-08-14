@@ -136,12 +136,7 @@ bot.dialog('/persona', [
     function (session) {
         //session.send('entered');
         session.send('What can I help you with today?');
-        session.send('1: Device Interactivity - An immersive device experience');
-        session.send('2: Exciting expert Surface Pro device demos');
-        session.send('3: Modern Workplace business solutions and applications like Microsoft 365 on the Surface Pro');
-        session.send('4: Modern Meetings with Modern Devices');
-        session.send('5: Modern Project Management tools for delivering high quality outcomes');
-        session.send('6: Physical set up of the Modern Workplace');
+        session.send('1: Device Interactivity - An immersive device experience \n\n 2: Exciting expert Surface Pro device demos \n\n 3: Modern Workplace business solutions and applications like Microsoft 365 on the Surface Pro \n\n \n\n 4: Modern Meetings with Modern Devices \n\n5: Modern Project Management tools for delivering high quality outcomes \n\n 6: Physical set up of the Modern Workplace');
         builder.Prompts.text(session, 'Please choose one');
     },
     // function (session,result)
