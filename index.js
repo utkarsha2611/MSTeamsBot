@@ -51,6 +51,7 @@ intentDialog.matches(/\b(hi|hello|hey|howdy|what's up)\b/i, '/sayHi') //Check fo
 bot.dialog('/sayHi', function (session) {
     session.send('Hello! I\'m AidingAly and I\'m here to help you navigate Co-Lab, where The Future of Work is Creative.');
     session.send('To help you get the most out of Co-Lab, I will be here at all times to help you navigate the event.');
+    session.send('1: Device Interactivity - An immersive device experience \n\n 2: Exciting expert Surface Pro device demos \n\n 3: Modern Workplace business solutions and applications like Microsoft 365 on the Surface Pro \n\n \n\n 4: Modern Meetings with Modern Devices \n\n5: Modern Project Management tools for delivering high quality outcomes \n\n 6: Physical set up of the Modern Workplace');
     session.endDialog();
     session.beginDialog('/persona');
     
@@ -136,13 +137,13 @@ bot.dialog('/persona', [
     function (session) {
         //session.send('entered');
         session.send('What can I help you with today?');
-        session.send('1: Device Interactivity - An immersive device experience \n\n 2: Exciting expert Surface Pro device demos \n\n 3: Modern Workplace business solutions and applications like Microsoft 365 on the Surface Pro \n\n \n\n 4: Modern Meetings with Modern Devices \n\n5: Modern Project Management tools for delivering high quality outcomes \n\n 6: Physical set up of the Modern Workplace');
+       
         builder.Prompts.text(session, 'Please choose one');
     },
     // function (session,result)
     function (session, results) {
         if (results.response == 1) {
-            session.endDialog('Please proceed to <b>Makers Commons</b> - devices and accessories are on display for interactivity purposes. Enjoy!');
+            session.send('Please proceed to <b>Makers Commons</b> - devices and accessories are on display for interactivity purposes. Enjoy!');
         }
         else if (results.response == 2) {
             session.send('Please proceed to:<b>Ideation Hub (Learning) - Modern Devices for Intelligent Integration</b>');
