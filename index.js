@@ -55,7 +55,7 @@ bot.dialog('/sayHi', function (session) {
     session.beginDialog('/persona');
 });
 
-function getDetails(session) {
+/*function getDetails(session) {
     return [
         new builder.HeroCard(session)
             .title('Get introduced to the new workspace')
@@ -73,7 +73,7 @@ function getDetails(session) {
                 builder.CardAction.openUrl(session, 'https://youtu.be/veLoHcgN7pc', 'Watch Video')
             ])
     ]
-}
+}*/
 function getCardsAttachments(session) {
     return [
         new builder.HeroCard(session)
@@ -135,19 +135,37 @@ bot.dialog('/persona', [
     function (session) {
         //session.send('entered');
         session.send('What can I help you with today?');
-        builder.Prompts.text(session, 'Say\n\n 1 for Event details \n\n  2 for Modern Workplace knowhow');
+        session.send('1: Device Interactivity - An immersive device experience');
+        session.send('2: Exciting expert Surface Pro device demos');
+        session.send('3: Modern Workplace business solutions and applications like Microsoft 365 on the Surface Pro');
+        session.send('4: Modern Meetings with Modern Devices');
+        session.send('5: Modern Project Management tools for delivering high quality outcomes');
+        session.send('6: Physical set up of the Modern Workplace');
+        builder.Prompts.text(session, 'Please choose one');
     },
     // function (session,result)
     function (session, results) {
         if (results.response == 1) {
-            session.replaceDialog('/option1');
+            session.send('Please proceed to <b>Makers Commons</b> - devices and accessories are on display for interactivity purposes. Enjoy!');
         }
         else if (results.response == 2) {
-            session.replaceDialog('/option2');
+            session.send('Please proceed to:<b>Ideation Hub (Learning) - Modern Devices for Intelligent Integration</b>');
+        }
+        else if (results.response == 3) {
+            session.send('Please proceed to: <b>Ideation Hub - Modern Business Solutions</b>');
+        }
+        else if (results.response == 4) {
+            session.send('Please proceed to : <b>Ideation Hub - Modern Meetings</b>');
+        }
+        else if (results.response == 5) {
+            session.send('Please proceed to : <b>Focus Seat - Modern Project Management</b>');
+        }
+        else if (results.response == 6) {
+            session.send('Please approach any of the <b>ambassadors</b> and they will direct a Steelcase representative to assist.');
         }
         else { session.endDialog("Invalid entry! Let'\s start again. Say Hi"); }
     }]);
-
+/*
 bot.dialog('/option1', [
     function (session) {
         var cards = getCardsAttachments();
@@ -192,4 +210,4 @@ bot.dialog('/option2', [
         }
         else { session.endDialog("Invalid entry! Let'\s start again. Say Hi"); }
     }
-]);
+]);*/
