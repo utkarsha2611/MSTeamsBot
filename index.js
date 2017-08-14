@@ -53,6 +53,7 @@ bot.dialog('/sayHi', function (session) {
     session.send('To help you get the most out of Co-Lab, I will be here at all times to help you navigate the event.');
     session.endDialog();
     session.beginDialog('/persona');
+    
 });
 
 /*function getDetails(session) {
@@ -73,7 +74,7 @@ bot.dialog('/sayHi', function (session) {
                 builder.CardAction.openUrl(session, 'https://youtu.be/veLoHcgN7pc', 'Watch Video')
             ])
     ]
-}*/
+}
 function getCardsAttachments(session) {
     return [
         new builder.HeroCard(session)
@@ -129,7 +130,7 @@ function getCardsAttachments(session) {
     ];
 
     session.endDialog();
-}
+}*/
 
 bot.dialog('/persona', [
     function (session) {
@@ -146,7 +147,7 @@ bot.dialog('/persona', [
     // function (session,result)
     function (session, results) {
         if (results.response == 1) {
-            session.send('Please proceed to <b>Makers Commons</b> - devices and accessories are on display for interactivity purposes. Enjoy!');
+            session.endDialog('Please proceed to <b>Makers Commons</b> - devices and accessories are on display for interactivity purposes. Enjoy!');
         }
         else if (results.response == 2) {
             session.send('Please proceed to:<b>Ideation Hub (Learning) - Modern Devices for Intelligent Integration</b>');
